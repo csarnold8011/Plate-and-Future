@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plate &amp; Future — Weekly Digest · April 12, 2026</title>
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --bg:          #0f1117;
+      --surface:     #181c25;
+      --surface2:    #1f2436;
+      --border:      #2a3040;
+      --accent:      #4ade80;     /* green */
+      --accent2:     #60a5fa;     /* blue  */
+      --accent3:     #f59e0b;     /* amber */
+      --accent-red:  #f87171;
+      --text:        #e8eaf0;
+      --text-muted:  #8892a4;
+      --text-dim:    #525d72;
+      --up:          #4ade80;
+      --down:        #f87171;
+      --stable:      #60a5fa;
+      --radius:      10px;
+      --radius-sm:   6px;
+      --font-mono:   'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --font-body:   'DM Sans', 'IBM Plex Sans', 'Segoe UI', sans-serif;
+      --font-display:'Syne', 'Space Grotesk', var(--font-body);
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== FONTS ===== */
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    /* ===== LAYOUT ===== */
+    .page-wrap  { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .header-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .header-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .header-title span { color: var(--accent); }
+    .header-date {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .stats-bar {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .stat-chip {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stat-chip strong {
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* ===== EXECUTIVE SUMMARY ===== */
+    .exec-summary {
+      background: linear-gradient(135deg, rgba(74,222,128,.08), rgba(96,165,250,.05));
+      border: 1px solid rgba(74,222,128,.2);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+    .exec-summary p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    /* ===== NAV ===== */
+    .category-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .nav-pill {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      color: var(--text-muted);
+      transition: all .15s;
+      cursor: pointer;
+    }
+    .nav-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ===== CATEGORY SECTION ===== */
+    .category-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .cat-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cat-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .cat-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .gap-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: rgba(248,113,113,.15);
+      border: 1px solid rgba(248,113,113,.3);
+      color: var(--accent-red);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .cat-signals {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .signal-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .signal-chip.trend-up     { color: var(--up);     border-color: rgba(74,222,128,.25); background: rgba(74,222,128,.08); }
+    .signal-chip.trend-down   { color: var(--down);   border-color: rgba(248,113,113,.25); background: rgba(248,113,113,.08); }
+    .signal-chip.trend-stable { color: var(--stable); border-color: rgba(96,165,250,.25); background: rgba(96,165,250,.08); }
+    .signal-chip.neutral      { color: var(--text-muted); }
+    .country-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 5px;
+    }
+    .sparkline {
+      width: 60px;
+      height: 20px;
+      color: var(--text-dim);
+      margin-left: 4px;
+    }
+
+    /* ===== SYNTHESIS ===== */
+    .synthesis-block {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+    .synthesis-text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ===== TABS ===== */
+    .tab-container { padding: 0; }
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: all .15s;
+      border-bottom: 2px solid transparent;
+    }
+    .tab-btn:hover  { color: var(--text); background: var(--surface2); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-panel      { display: none; padding: 16px 20px; }
+    .tab-panel.active { display: block; }
+
+    /* ===== ITEM CARDS ===== */
+    .item-card {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      transition: border-color .15s, background .15s;
+    }
+    .item-card:hover          { border-color: var(--accent2); background: var(--surface2); }
+    .paper-card:hover         { border-color: var(--accent3); }
+    .event-card:hover         { border-color: var(--text-dim); }
+    .item-card-inner          { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+    .item-title               { font-size: 13px; color: var(--text); font-weight: 500; line-height: 1.4; }
+    .item-meta                { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); }
+    .item-authors             { font-size: 11px; color: var(--text-muted); }
+    .relevance-badge          { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); white-space: nowrap; margin-top: 2px; }
+    .radar-text               { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.6; font-style: italic; }
+    .empty-note               { font-size: 13px; color: var(--text-dim); font-style: italic; padding: 8px 0; }
+
+    /* ===== DIVIDER ===== */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0 32px;
+    }
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    /* ===== RESEARCH DIRECTIONS ===== */
+    .direction-card {
+      display: flex;
+      gap: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .direction-number {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .direction-body { flex: 1; }
+    .direction-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .direction-abstract { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ===== COMMS CARDS ===== */
+    .comms-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .comms-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .comms-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .linkedin-card .comms-label { background: rgba(96,165,250,.15); border: 1px solid rgba(96,165,250,.3); color: var(--accent2); }
+    .email-card    .comms-label { background: rgba(74,222,128,.12); border: 1px solid rgba(74,222,128,.25); color: var(--accent); }
+    .comms-theme  { font-size: 13px; font-weight: 500; color: var(--text); }
+    .comms-preview-line { font-size: 12px; color: var(--text-dim); margin-bottom: 10px; }
+    .comms-text   { font-size: 13px; color: var(--text-muted); line-height: 1.7; white-space: pre-wrap; }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      margin-top: 60px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .tab-btn { font-size: 10px; padding: 8px 6px; }
+      .cat-title { font-size: 15px; }
+      .stats-bar { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <p class="header-eyebrow">Resilient &amp; Responsible Food Consumption Research Group</p>
+    <h1 class="header-title">Plate &amp; <span>Future</span></h1>
+    <p class="header-date">Weekly Digest · April 12, 2026</p>
+    <div class="stats-bar">
+      <span class="stat-chip"><strong>30</strong> news articles</span>
+      <span class="stat-chip"><strong>108</strong> media events</span>
+      <span class="stat-chip"><strong>50</strong> academic papers</span>
+      <span class="stat-chip"><strong>7</strong> categories</span>
+    </div>
+    <div class="exec-summary">
+      <p class="section-label">Executive Summary</p>
+      <p>Across every category this week, a single structural argument dominates: the primary failures in food systems are governance design failures, not production or technology shortfalls, with policy architectures systematically misaligned with the resilience, sustainability, and security outcomes they nominally pursue. This misalignment is visible whether the lens is climate recovery, dietary transition, or geopolitical supply chain stress — institutional capacity consistently lags disruption, and consumer-facing interventions consistently underperform upstream reform. Biotechnology and systems innovation are accelerating, but without the regulatory scaffolding to anchor them, they risk compounding the same governance vacuum they are meant to resolve.</p>
+    </div>
+    <nav class="category-nav">
+      <a href="#cat-food-policy-and-regulation" class="nav-pill">Food Policy and Regulation</a>
+<a href="#cat-climate-change-and-food-security" class="nav-pill">Climate Change and Food Security</a>
+<a href="#cat-food-supply-chain-and-trade" class="nav-pill">Food Supply Chain and Trade</a>
+<a href="#cat-sustainable-consumption-and-nutrition" class="nav-pill">Sustainable Consumption and Nutrition</a>
+<a href="#cat-food-technology-and-innovation" class="nav-pill">Food Technology and Innovation</a>
+<a href="#cat-consumer-behavior-and-market-trends" class="nav-pill">Consumer Behavior and Market Trends</a>
+<a href="#cat-food-systems-resilience" class="nav-pill">Food Systems Resilience</a>
+    </nav>
+  </header>
+
+  <!-- CATEGORY SECTIONS -->
+  
+    <section class="category-section" id="cat-food-policy-and-regulation">
+      <div class="cat-header">
+        <div class="cat-title-row">
+          <h2 class="cat-title">Food Policy and Regulation</h2>
+          
+        </div>
+        <div class="cat-signals">
+          <span class="signal-chip trend-up">↑ 20 GDELT events</span>
+          <span class="signal-chip neutral">9 news</span>
+          <span class="signal-chip neutral">12 papers</span>
+          <span class="country-tag">US</span> <span class="country-tag">IN</span> <span class="country-tag">UK</span> <span class="country-tag">AS</span>
+          <svg class="sparkline" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg"><polyline points="2.0,16.0 11.3,13.0 20.7,12.0 30.0,2.0 39.3,9.0 48.7,17.0 58.0,15.0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="synthesis-block">
+        <p class="synthesis-text">Across news reporting, media signals, and peer-reviewed literature, a single structural argument is converging: food security frameworks are architecturally misaligned with the policy decisions nominally meant to support them. Academic work makes this concrete — Sri Lanka's fertiliser import ban saved $63 million in urea costs while generating an estimated $315 million annual net loss, and EU meat promotion campaigns in member states like Slovenia directly counterwork Farm-to-Fork dietary transition targets, illustrating that incoherence is not incidental but institutionally embedded. News coverage reinforces the pattern at scale: SNAP eligibility restrictions in the US, agriculture's exclusion from UK national security procurement, and 75–80% fertiliser import dependency across the Americas all reflect the same failure to treat food security as a cross-sector strategic commitment rather than a rhetorical by-product of economic or immigration policy. With GDELT volume elevated and rising across the US, India, the UK, Australia, and Saudi Arabia — spanning enforcement tightening, traceability reform, and outbreak-linked regulatory responses — the most policy-relevant implication is that the redesign challenge is governance-level, not technical: no amount of improved targeting or increased funding resolves vulnerabilities that are structurally embedded in how food policy authority is fragmented across ministries with competing mandates.</p>
+      </div>
+
+      <div class="tab-container" data-section="food-policy-and-regulation">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="news-food-policy-and-regulation">📰 News (9)</button>
+          <button class="tab-btn"        data-tab="events-food-policy-and-regulation">📡 Media Events (20)</button>
+          <button class="tab-btn"        data-tab="papers-food-policy-and-regulation">🎓 Papers (12)</button>
+        </div>
+        <div class="tab-panel active" id="news-food-policy-and-regulation">
+          
+        <a href="https://www.express.co.uk/news/politics/2193002/fury-countryside-labour-warned-not" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Fury in countryside as Labour warned not to leave Britain without food in wartime</span>
+            <span class="item-meta">expresscouk · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://caribbeannewsglobal.com/ministers-and-senior-officials-of-agriculture-of-the-americas-call-for-improving-policy-coordination-between-countries/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Ministers and senior officials of agriculture of the Americas call for improving policy coordination between countries</span>
+            <span class="item-meta">caribbeannewsglobal · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://menafn.com/1110970568/Ministers-And-Senior-Officials-Of-Agriculture-Of-The-Americas-Call-For-Improving-Policy-Coordination-Between-Countries" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Ministers And Senior Officials Of Agriculture Of The Americas Call For Improving Policy Coordination Between Countries</span>
+            <span class="item-meta">menafn · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://economictimes.indiatimes.com/news/economy/agriculture/microplastics-in-indias-agriculture-a-growing-problem-demanding-urgent-action/articleshow/130192688.cms" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Microplastics in India’s agriculture: A growing problem demanding urgent action</span>
+            <span class="item-meta">economictimes_indiatimes · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.hastingstribune.com/ap/agriculture/more-than-16-000-immigrants-in-illinois-may-lose-food-assistance-in-the-coming-months/article_2a0c17e1-ff1f-5bce-9b87-51ca8e54c2d6.html" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">More than 16,000 immigrants in Illinois may lose food assistance in the coming months</span>
+            <span class="item-meta">hastingstribune · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://ethicalmarketingnews.com/aws-unveils-upgraded-global-water-standard" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">AWS unveils upgraded global water standard</span>
+            <span class="item-meta">ethicalmarketingnews · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="events-food-policy-and-regulation">
+          <p class="radar-text">Food policy and regulation coverage is running at elevated and rising volume, with the United States, India, the United Kingdom, Australia, and Saudi Arabia anchoring the geographic spread of attention. Dominant threads include food safety enforcement tightening — notably India's FSSAI state-level push and FDA transparency scrutiny in the US — alongside traceability rule developments and outbreak-linked regulatory responses. M1 pipeline coverage aligns well with the broader media landscape, with no meaningful gaps to flag.</p>
+          
+        <a href="https://www.foodsafetynews.com/2026/04/australian-campylobacter-outbreak-linked-to-pate/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.foodsafetynews.com</span>
+            <span class="item-meta">2026-04-08 · AS</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://aninews.in/news/national/general-news/fssai-tightens-food-safety-net-states-drive-enforcement-push-in-fy-2025-2620260408223835/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">aninews.in</span>
+            <span class="item-meta">2026-04-08 · IN</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.finanznachrichten.de/nachrichten-2026-04/68139242-food-safety-summit-announces-addition-of-fspca-food-traceability-rule-participant-course-to-2026-program-200.htm" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.finanznachrichten.de</span>
+            <span class="item-meta">2026-04-07 · </span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.stuttgartdailyleader.com/nalc-nasda-foundation-to-host-agricultural-food-law-policy-briefing-in-washington-d-c/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.stuttgartdailyleader.com</span>
+            <span class="item-meta">2026-04-07 · US</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.foodsafetynews.com/2026/04/fda-was-too-heavy-handed-with-redaction-pen-in-this-outbreak-report/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.foodsafetynews.com</span>
+            <span class="item-meta">2026-04-06 · US</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="papers-food-policy-and-regulation">
+          
+        <a href="https://openalex.org/W7142567149" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">From Food Aid to Food Security to Food Sovereignty? The Fragile Transition in Ethiopia’s PSNP, 2020-2026</span>
+            <span class="item-meta">Pepperdine Digital Commons (Pepperdine University) · 2026-04-10</span>
+            <span class="item-authors">Tsion Kefene Gerbaba</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.5281/zenodo.19409909" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Sustainable Food Systems as part of The Green Deal</span>
+            <span class="item-meta">Zenodo (CERN European Organization for Nuclear Research) · 2026-04-03</span>
+            <span class="item-authors">Huska Jukić, Azira Hrnjica et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.52058/2786-5274-2026-3(55)-41-55" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">MECHANISMS OF ANTI-CRISIS MANAGEMENT OF FOOD SECURITY IN UKRAINE IN THE CONDITIONS OF TURBULENCE OF THE SOCIO-ECONOMIC ENVIRONMENT AND INTEGRATION INTO EUROPEAN FOOD MARKETS</span>
+            <span class="item-meta">Наукові інновації та передові технології · 2026-04-08</span>
+            <span class="item-authors">Anastasiia Poltorak, Anna Burkovska et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.7759/cureus.106307" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Understanding Supply-Side Implementation Barriers Affecting Child Nutrition Outcomes in the Take-Home Ration Scheme: A Qualitative Study From Madhya Pradesh, India</span>
+            <span class="item-meta">Cureus · 2026-04-02</span>
+            <span class="item-authors">Arun Kokane, Harijith K R et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.46507/jcgpp.v7i1.686" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Governance and Policy Innovations for Food Security in a Buffer City: Causal Pathways and Evidence from Palopo, Indonesia</span>
+            <span class="item-meta">Journal of Contemporary Governance and Public Policy · 2026-04-09</span>
+            <span class="item-authors">Novayanti Sopia Rukmana, Saddam Husain Tamrin et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-section" id="cat-climate-change-and-food-security">
+      <div class="cat-header">
+        <div class="cat-title-row">
+          <h2 class="cat-title">Climate Change and Food Security</h2>
+          
+        </div>
+        <div class="cat-signals">
+          <span class="signal-chip trend-up">↑ 62 GDELT events</span>
+          <span class="signal-chip neutral">4 news</span>
+          <span class="signal-chip neutral">13 papers</span>
+          <span class="country-tag">US</span> <span class="country-tag">RP</span> <span class="country-tag">QA</span> <span class="country-tag">LE</span>
+          <svg class="sparkline" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg"><polyline points="2.0,12.3 11.3,13.1 20.7,12.1 30.0,10.6 39.3,6.9 48.7,2.0 58.0,13.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="synthesis-block">
+        <p class="synthesis-text">Media attention and peer-reviewed research converge with unusual coherence this week: both point to a structural mismatch between the pace of climate-driven agricultural disruption and the institutional capacity to absorb it. The academic literature's central finding — that recovery from climate shocks takes nearly three years on average, while single-practice interventions yield limited systemic gains — maps directly onto the news record's indictment of technologically innovative but institutionally shallow responses in the Sahel, Nigeria, and Mediterranean Europe. Where the research adds analytical precision is in its identification of a data-equity problem: Africa's structural vulnerability is systematically underweighted in global meta-analyses, meaning policy responses calibrated to measured losses will continue to misallocate resources toward better-documented regions. The most policy-urgent implication across all three sources is that multilateral climate finance architecture must shift from episodic project funding toward integrated, long-horizon frameworks embedding soil health, land tenure reform, and locally calibrated risk insurance — otherwise, the next generation of precision irrigation schemes and community resilience programmes risks reproducing the fragility they were designed to displace.</p>
+      </div>
+
+      <div class="tab-container" data-section="climate-change-and-food-security">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="news-climate-change-and-food-security">📰 News (4)</button>
+          <button class="tab-btn"        data-tab="events-climate-change-and-food-security">📡 Media Events (62)</button>
+          <button class="tab-btn"        data-tab="papers-climate-change-and-food-security">🎓 Papers (13)</button>
+        </div>
+        <div class="tab-panel active" id="news-climate-change-and-food-security">
+          
+        <a href="https://en.ara.cat/sunday/murcia-desert-turned-into-an-agricultural-powerhouse-with-dangerous-techno-climatic-bet_130_5705133.html" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Murcia: a desert turned into an agricultural powerhouse with a dangerous techno-climatic bet</span>
+            <span class="item-meta">ara · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://www.gulf-insider.com/imf-to-cut-global-growth-forecast/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">IMF To Cut Global Growth Forecast Due To Mideast War</span>
+            <span class="item-meta">gulf_insider · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://us.headtopics.com/news/great-green-wall-ambitious-african-project-faces-challenges-82113745" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Great Green Wall: Ambitious African Project Faces Challenges</span>
+            <span class="item-meta">headtopics · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.thisdaylive.com/2026/04/12/nigeria-climate-change-and-disaster-management/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">NIGERIA, CLIMATE CHANGE AND DISASTER MANAGEMENT</span>
+            <span class="item-meta">thisdaylive · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="events-climate-change-and-food-security">
+          <p class="radar-text">Coverage of climate change and food security is running at elevated volume and accelerating, with the United States leading media attention alongside the Philippines, Qatar, Lebanon, and Nigeria — a spread that reflects both donor-country framing and frontline vulnerability. Reporting spans seed policy reform in Africa, community resilience programmes in Southeast Asia, regional trade agreements, and conflict-driven supply disruptions in the Middle East, signalling broad thematic diversity rather than a single dominant news driver. Monitoring-and-assessment coverage is strong, with no significant gap between institutional developments and media representation.</p>
+          
+        <a href="https://www.nyasatimes.com/afsta-congress-2026a-frica-cannot-fix-food-security-without-fixing-seed-policy/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.nyasatimes.com</span>
+            <span class="item-meta">2026-04-07 · SF</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://www.manilatimes.net/2026/04/12/tmt-newswire/sun-life-foundation-wwf-philippines-scale-up-food-security-and-climate-resilience-program-in-surigao-del-norte/2318463" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.manilatimes.net</span>
+            <span class="item-meta">2026-04-11 · RP</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.straitstimes.com/singapore/environment/singapore-and-cambodia-sign-rice-trade-agreement-for-food-security" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.straitstimes.com</span>
+            <span class="item-meta">2026-04-10 · SN</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://icsf.net/newss/not-the-same-river-we-knew-dwindling-catch-threatens-fisher-livelihoods-food-security-in-tanzania/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">icsf.net</span>
+            <span class="item-meta">2026-04-10 · TZ</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.channelafrica.co.za/channelafrica/news/imf-world-bank-wfp-warn-middle-east-war-threatens-global-food-security/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.channelafrica.co.za</span>
+            <span class="item-meta">2026-04-09 · </span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="papers-climate-change-and-food-security">
+          
+        <a href="https://doi.org/10.1007/s44187-026-00919-8" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">The effects of climate variability agricultural total factor productivity and external drivers on food and beverage inflation in the United States</span>
+            <span class="item-meta">Discover Food · 2026-04-09</span>
+            <span class="item-authors">Luis Eduardo Girón Cruz, Lya Paola Sierra-Suárez</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.31223/x5r18m" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Balancing Food Production and Environmental Sustainability in Ethiopian Agriculture: A Systematic Review</span>
+            <span class="item-meta">Unknown journal · 2026-04-08</span>
+            <span class="item-authors">Alebachew Destaw Destaw, Tadelle Dessie</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.1007/s43621-026-03106-y" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Women in the quest for achieving food security and agricultural sustainability in Zimbabwe</span>
+            <span class="item-meta">Discover Sustainability · 2026-04-10</span>
+            <span class="item-authors">Kevin Tirivanhu Gwatidzo</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.9734/jgeesi/2026/v30i41034" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Socioeconomic and Environmental Co-benefits of Soil Carbon Sequestration in Farmland Systems: A Review</span>
+            <span class="item-meta">Journal of Geography Environment and Earth Science International · 2026-04-03</span>
+            <span class="item-authors">Moinuddin, Gurrala Priyanka et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.34659/eis.2025.95.4.1189" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Navigating climate challenges: the relationship between climate risk and food security in Africa and Asia</span>
+            <span class="item-meta">Economics and Environment · 2026-04-02</span>
+            <span class="item-authors">Suryanto Suryanto, Sepviana Nur Kumala et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-section" id="cat-food-supply-chain-and-trade">
+      <div class="cat-header">
+        <div class="cat-title-row">
+          <h2 class="cat-title">Food Supply Chain and Trade</h2>
+          
+        </div>
+        <div class="cat-signals">
+          <span class="signal-chip trend-stable">→ 26 GDELT events</span>
+          <span class="signal-chip neutral">4 news</span>
+          <span class="signal-chip neutral">5 papers</span>
+          <span class="country-tag">CH</span> <span class="country-tag">IR</span> <span class="country-tag">US</span> <span class="country-tag">NZ</span>
+          <svg class="sparkline" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg"><polyline points="2.0,16.7 11.3,2.0 20.7,9.0 30.0,9.7 39.3,8.4 48.7,7.1 58.0,17.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="synthesis-block">
+        <p class="synthesis-text">Geopolitical stress and structural fragility are converging across both news reporting and peer-reviewed research, with the Middle East conflict exposing how deeply supply chains optimized for efficiency — rather than resilience — remain hostage to single upstream inputs: petrochemical feedstocks, fertilizer flows, and contested shipping corridors. Academic modelling reinforces this diagnosis, showing that even technically sophisticated interventions such as multi-modal logistics integration yield limited gains when cold-chain reliability and institutional capacity are absent, a finding with direct relevance to the import-dependent economies the IMF warns could see 45 million additional people face acute food insecurity. The research literature's insistence on sequencing — energy and institutional investment before digitization — offers a pointed corrective to multilateral emergency instruments that tend to prioritise technological fixes over the governance scaffolding those fixes require. One gap worth flagging for this group: Central European and EU-specific exposure to Middle East supply disruptions remains underrepresented in both media signals and collected academic work, despite the region's meaningful vulnerability through fertilizer import dependency and agri-food trade linkages that warrant closer analytical attention.</p>
+      </div>
+
+      <div class="tab-container" data-section="food-supply-chain-and-trade">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="news-food-supply-chain-and-trade">📰 News (4)</button>
+          <button class="tab-btn"        data-tab="events-food-supply-chain-and-trade">📡 Media Events (26)</button>
+          <button class="tab-btn"        data-tab="papers-food-supply-chain-and-trade">🎓 Papers (5)</button>
+        </div>
+        <div class="tab-panel active" id="news-food-supply-chain-and-trade">
+          
+        <a href="https://economictimes.indiatimes.com/news/international/business/economic-shock-of-middle-east-war-to-cast-shadow-over-imf-world-bank-meetings/articleshow/130206265.cms" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Economic shock of Middle East war to cast shadow over IMF, World Bank meetings</span>
+            <span class="item-meta">economictimes_indiatimes · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://english.aawsat.com/node/5261426" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Economic Shock of Mideast War to Cast Shadow over IMF, World Bank Meetings</span>
+            <span class="item-meta">aawsat · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.thedailyjagran.com/india/how-fuel-shortage-is-triggering-supply-chain-crisis-amid-iran-us-conflict-maggi-stock-piles-up-costlier-cars-in-india-10307544" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Maggi Stock Piles Up, Cars To Get Costlier: How Fuel Shortage Is Triggering Supply Chain Crisis Amid Iran-US Conflict</span>
+            <span class="item-meta">english_jagran · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://us.headtopics.com/news/jbs-greeley-beef-plant-workers-strike-sparks-labor-dispute-82103725" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">JBS Greeley Beef Plant Workers Strike Sparks Labor Dispute</span>
+            <span class="item-meta">headtopics · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="events-food-supply-chain-and-trade">
+          <p class="radar-text">Coverage of food supply chains and trade remains steady, with geopolitical disruption — particularly the Iran conflict — driving the dominant narrative across Swiss, American, and Gulf media, alongside New Zealand's domestic resilience debate. International institutions including the IMF, World Bank, and FAO are prominently cited as price pressures extend into a second consecutive month, while Kuwait's subsidy interventions signal active policy responses in import-dependent economies. With strong pipeline coverage and no significant gaps, the story is well-mapped, though Central European and EU-specific supply chain exposure to Middle East instability remains underrepresented in the collected signals.</p>
+          
+        <a href="https://www.moneycontrol.com/world/imf-world-bank-world-food-programme-warn-of-rising-food-prices-due-to-iran-war-article-13884240.html" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.moneycontrol.com</span>
+            <span class="item-meta">2026-04-09 · IR</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.odt.co.nz/news/national/govt-urged-make-food-supply-high-priority-amid-any-fuel-plan-rnz" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.odt.co.nz</span>
+            <span class="item-meta">2026-04-09 · NZ</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.euronews.com/business/2026/04/04/middle-east-tensions-drives-global-food-prices-higher-for-second-month" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.euronews.com</span>
+            <span class="item-meta">2026-04-09 · UP</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.zawya.com/en/business/retail-and-consumer/kuwait-draws-red-line-on-food-prices-with-subsidy-support-whebxc0g" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.zawya.com</span>
+            <span class="item-meta">2026-04-07 · KU</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.just-food.com/news/iran-war-food-prices-fao-index/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.just-food.com</span>
+            <span class="item-meta">2026-04-07 · BR</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="papers-food-supply-chain-and-trade">
+          
+        <a href="https://doi.org/10.5281/zenodo.19428307" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Resilient food cold-chain logistics in resource-constrained tropical economies: a systematic literature review</span>
+            <span class="item-meta">Zenodo (CERN European Organization for Nuclear Research) · 2026-06-30</span>
+            <span class="item-authors">Adeolu Emmanuel Gbadegesin, J. Folorunso Ojo et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.26183/4wpn-0605" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Viable agri-food supply chains: exploring adaptation strategies enabled by digital environments through system dynamics modelling</span>
+            <span class="item-meta">Western Sydney University ResearchDirect · 2026-04-08</span>
+            <span class="item-authors">Kasuni Vidanagamachchi</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.3389/fsufs.2026.1651967" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Modeling the effects of the Russia-Ukraine conflict on Egyptian food security</span>
+            <span class="item-meta">Frontiers in Sustainable Food Systems · 2026-04-02</span>
+            <span class="item-authors">Mohamad Alnafissa, Adel M. Ghanem</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.3389/fsufs.2026.1807797" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Stochastic optimization of perishable agricultural supply chains: a hybrid genetic algorithm approach for robust network design under multi-dimensional uncertainty</span>
+            <span class="item-meta">Frontiers in Sustainable Food Systems · 2026-04-08</span>
+            <span class="item-authors">Khaled Mili, Majdi Argoubi</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://openalex.org/W7149879842" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Milieu-impact en onderzoekskenmerken van voedselsystemen op kleine eilanden: case studies naar voedselimport en een scoping review in Aruba, Bonaire en Curaçao (Nederlands-Caribisch gebied)</span>
+            <span class="item-meta">Lirias (KU Leuven) · 2026-04-21</span>
+            <span class="item-authors">Amber Saïda van Veghel</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-section" id="cat-sustainable-consumption-and-nutrition">
+      <div class="cat-header">
+        <div class="cat-title-row">
+          <h2 class="cat-title">Sustainable Consumption and Nutrition</h2>
+          
+        </div>
+        <div class="cat-signals">
+          <span class="signal-chip trend-stable">→ 8 GDELT events</span>
+          <span class="signal-chip neutral">4 news</span>
+          <span class="signal-chip neutral">10 papers</span>
+          <span class="country-tag">US</span> <span class="country-tag">UK</span> <span class="country-tag">TH</span> <span class="country-tag">IT</span>
+          <svg class="sparkline" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg"><polyline points="2.0,18.0 11.3,15.7 20.7,2.0 30.0,8.9 39.3,18.0 48.7,8.9 58.0,18.0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="synthesis-block">
+        <p class="synthesis-text">Across news reporting, media signals, and recent peer-reviewed literature, a consistent structural argument is crystallising: the primary obstacle to sustainable dietary transition is not scientific uncertainty or consumer indifference, but the absence of governance architectures that make low-impact choices the default. Mycoprotein trial data strengthening the case for alternative proteins, city-level buffer zone regulations, and community-governed school feeding programmes all point toward supply-side and environmental interventions — yet academic evidence from Indonesia, Saudi Arabia, and Sweden confirms that positive sustainability attitudes reliably fail to translate into measurable dietary change without enabling policy infrastructure to match. The German plant-based market, where fewer than one in five products carries Nutri-Score labelling and iodized salt adoption is negligible, exemplifies precisely how market innovation can outpace regulatory guidance, leaving consumers without meaningful decision support — a dynamic likely replicated across Central European markets with similar labelling regimes. Media coverage, stable but dominated by food waste and operational framing, underrepresents this broader upstream nutrition governance debate, suggesting that the policy urgency researchers and practitioners are articulating has yet to find proportionate traction in public discourse.</p>
+      </div>
+
+      <div class="tab-container" data-section="sustainable-consumption-and-nutrition">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="news-sustainable-consumption-and-nutrition">📰 News (4)</button>
+          <button class="tab-btn"        data-tab="events-sustainable-consumption-and-nutrition">📡 Media Events (8)</button>
+          <button class="tab-btn"        data-tab="papers-sustainable-consumption-and-nutrition">🎓 Papers (10)</button>
+        </div>
+        <div class="tab-panel active" id="news-sustainable-consumption-and-nutrition">
+          
+        <a href="https://www.glasgowtimes.co.uk/news/scottish-news/26014005.robert-burns-ayrshire-farm-leading-scotlands-dairy-revolution/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Robert Burns' famous farm is now leading Scotland's organic dairy revolution</span>
+            <span class="item-meta">glasgowtimes · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://indianexpress.com/article/explained/explained-health/childhood-obesity-school-food-models-india-lessons-10630148/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">From salt bans to school gardens, how small cities worldwide are taking on childhood obesity</span>
+            <span class="item-meta">indianexpress · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://vegnews.com/mushroom-meat-animal-muscle-study" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Mushroom Meat Just As Effective As Animal Meat to Build Muscle, Study Finds</span>
+            <span class="item-meta">vegnews · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://www.arise.tv/johnvents-launches-environmental-charter-to-drive-sustainability-eyes-global-cocoa-market-edge/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Johnvents Launches Environmental Charter To Drive Sustainability, Eyes Global Cocoa Market Edge</span>
+            <span class="item-meta">arise · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r6</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="events-sustainable-consumption-and-nutrition">
+          <p class="radar-text">Coverage of sustainable consumption and nutrition remains steady at modest volume, with English-language outlets in the US, UK, Canada, Thailand, and Italy driving the conversation largely around food waste reduction — spanning legislative reform, cross-industry redistribution coalitions, and community-scale infrastructure investments. The framing is consistently action-oriented, foregrounding measurable targets and operational models rather than upstream dietary or nutritional dimensions. With no coverage gap flagged and strong pipeline representation, the topic is well-captured, though the dominant food-waste lens leaves broader sustainable nutrition discourse underrepresented in this cycle.</p>
+          
+        <a href="https://www.bangkokpost.com/opinion/opinion/3232798/laws-must-unlock-food-waste-value" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.bangkokpost.com</span>
+            <span class="item-meta">2026-04-08 · TH</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.bakeryandsnacks.com/Article/2026/04/07/crossindustry-food-waste-coalition-alliance-food-sourcing-targets-30-million-meals-a-year-by-2028/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.bakeryandsnacks.com</span>
+            <span class="item-meta">2026-04-08 · UK</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.foodmanufacture.co.uk/Article/2026/04/07/crossindustry-food-waste-coalition-alliance-food-sourcing-targets-30-million-meals-a-year-by-2028/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.foodmanufacture.co.uk</span>
+            <span class="item-meta">2026-04-07 · UK</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.staradvertiser.com/2026/04/08/editorial/off-the-news/off-the-news-first-week-in-the-can-for-food-waste-pilot/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.staradvertiser.com</span>
+            <span class="item-meta">2026-04-08 · US</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://www.winnipegfreepress.com/breakingnews/2026/04/07/harvest-manitoba-wants-to-transform-lives-curb-food-waste-with-ambitious-plans-for-new-facility-ceo-says" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.winnipegfreepress.com</span>
+            <span class="item-meta">2026-04-07 · CA</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="papers-sustainable-consumption-and-nutrition">
+          
+        <a href="https://doi.org/10.18623/rvd.v23.4816" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">URBAN FOOD DIVERSIFICATION AND DIETARY OUTCOMES IN A MEDIUM-SIZED CITY: EVIDENCE FROM CIREBON, INDONESIA</span>
+            <span class="item-meta">Veredas do Direito Direito Ambiental e Desenvolvimento Sustentável · 2026-04-07</span>
+            <span class="item-authors">Kartono, Novid Gumelar et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://openalex.org/W7141777608" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Levenscyclus analyse voor een duurzamere voedselketen op Aruba</span>
+            <span class="item-meta">Lirias (KU Leuven) · 2026-04-21</span>
+            <span class="item-authors">Amber Saïda van Veghel</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.3389/fnut.2026.1730844" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Plant-based meat substitutes on the German market: a characterization based on declared nutrient contents, Nutri-Score, organic and vegan labeling, and use of iodized salt</span>
+            <span class="item-meta">Frontiers in Nutrition · 2026-04-09</span>
+            <span class="item-authors">Corinna Gréa, Melanie Turke et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.3390/nu18071149" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Sustainable Eating in Saudi Arabia: Associations Between Food Sustainability Knowledge, Attitudes, Food Waste-Related Behaviours, and Dietary Choices Among Adults</span>
+            <span class="item-meta">Nutrients · 2026-04-03</span>
+            <span class="item-authors">Areej A. Alghamdi, Najlaa M. Aljefree et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.1111/1746-692x.70028" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Strategic Pathways to Sustainable Food Choices: Insights from Sweden</span>
+            <span class="item-meta">EuroChoices · 2026-04-02</span>
+            <span class="item-authors">Sara Spendrup, Richard Tellström et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-section" id="cat-food-technology-and-innovation">
+      <div class="cat-header">
+        <div class="cat-title-row">
+          <h2 class="cat-title">Food Technology and Innovation</h2>
+          
+        </div>
+        <div class="cat-signals">
+          <span class="signal-chip trend-down">↓ 8 GDELT events</span>
+          <span class="signal-chip neutral">3 news</span>
+          <span class="signal-chip neutral">3 papers</span>
+          <span class="country-tag">AS</span> <span class="country-tag">US</span> <span class="country-tag">MX</span>
+          <svg class="sparkline" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg"><polyline points="2.0,18.0 11.3,15.3 20.7,2.0 30.0,15.3 39.3,15.3 48.7,18.0 58.0,12.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="synthesis-block">
+        <p class="synthesis-text">Biotechnology and systems integration are converging as the dominant response logic across both industry practice and academic research, yet the institutional scaffolding needed to translate innovation into durable governance remains conspicuously underdeveloped. News from Pakistan's dairy sector, India's crop residue economy, and JBS's Brazilian biotech investment collectively illustrate how farm-level failures, waste externalities, and corporate repositioning are each being addressed through technological intervention — but without the cross-sectoral coordination that would make such interventions structurally transformative rather than episodic. Academic work reinforces this diagnosis: LCA fragmentation, siloed compliance instruments, and the absence of harmonized digital decision-support architectures mean that even technically sophisticated solutions struggle to achieve regulatory uptake or cross-border comparability, a problem with direct implications for the EU's Farm to Fork commitments. With media volume declining and geographic coverage thin outside the Anglophone world, the field risks losing the public and policy attention it needs precisely as the window for institutional standardization — particularly within EU food and farm governance — remains open but narrowing.</p>
+      </div>
+
+      <div class="tab-container" data-section="food-technology-and-innovation">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="news-food-technology-and-innovation">📰 News (3)</button>
+          <button class="tab-btn"        data-tab="events-food-technology-and-innovation">📡 Media Events (8)</button>
+          <button class="tab-btn"        data-tab="papers-food-technology-and-innovation">🎓 Papers (3)</button>
+        </div>
+        <div class="tab-panel active" id="news-food-technology-and-innovation">
+          
+        <a href="https://www.indianchemicalnews.com/general/india-ramps-up-biomass-push-as-vedanta-scales-stubble-burning-solution-in-punjab-30012" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">India ramps up biomass push as Vedanta scales stubble-burning solution in Punjab</span>
+            <span class="item-meta">indianchemicalnews · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://www.nation.com.pk/12-Apr-2026/streptococcal-mastitis-modulation" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Streptococcal Mastitis Modulation</span>
+            <span class="item-meta">nation_pk · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://www.foodbusinessmea.com/jbs-opens-us37m-biotech-centre-in-brazil-to-advance-alternative-proteins-food-innovation/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">JBS opens US$37M Biotech centre in Brazil to advance alternative proteins, food innovation</span>
+            <span class="item-meta">foodbusinessmea · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="events-food-technology-and-innovation">
+          <p class="radar-text">Media attention on food technology and innovation is modest and softening, with only a handful of broadcast signals concentrated primarily in Australia, the United States, and Mexico. Coverage spans a range of innovation registers — from university-led infrastructure like open-access food makerspaces to the persistent debate around genetic modification and the commercialization strategies of food tech startups. With strong alignment between monitored sources and broader media output, no significant coverage gap is present, though the declining volume suggests the topic is losing short-term media momentum despite its long-term policy relevance.</p>
+          
+        <a href="https://www.foodprocessing.com.au/content/the-food-plant/article/uq-opens-faba-makerspace-for-food-innovations-1251052292" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.foodprocessing.com.au</span>
+            <span class="item-meta">2026-04-08 · AS</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.winnipegfreepress.com/business/2026/04/11/few-food-innovations-as-polarizing-as-genetic-modification" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.winnipegfreepress.com</span>
+            <span class="item-meta">2026-04-11 · US</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://www.foodmag.com.au/uq-opens-faba-makerspace-to-drive-food-innovation/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.foodmag.com.au</span>
+            <span class="item-meta">2026-04-09 · AS</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://www.bakeryandsnacks.com/Article/2026/04/03/how-food-tech-startups-win-big-food-buyers-readiness-not-disruption/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.bakeryandsnacks.com</span>
+            <span class="item-meta">2026-04-07 · US</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://www.manilatimes.net/2026/04/07/tmt-newswire/globenewswire/enwave-signs-research-and-development-license-agreement-with-rhizome-food-and-farming-llc-a-food-innovation-company-led-by-michelin-starred-chef-dan-barber/2315540" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.manilatimes.net</span>
+            <span class="item-meta">2026-04-07 · AS</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="papers-food-technology-and-innovation">
+          
+        <a href="https://doi.org/10.5281/zenodo.19453316" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Deliverable 1.2 - Monitoring system for a holistic assessment of the impact of current crop protection versus IPM strategies</span>
+            <span class="item-meta">Zenodo (CERN European Organization for Nuclear Research) · 2026-04-07</span>
+            <span class="item-authors">Julius Kühn-Institut</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.5281/zenodo.19499846" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Lume‑Food: A Deterministic Governance Substrate for Food Systems, Supply Chains, and Safety</span>
+            <span class="item-meta">Zenodo (CERN European Organization for Nuclear Research) · 2026-04-10</span>
+            <span class="item-authors">Ronald Jason Andrews</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.20944/preprints202604.0632.v1" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Environmental Impact Assessment and Sustainability of Food Industry Processes: A Systematic Review of Methods, Technologies and Applications</span>
+            <span class="item-meta">Preprints.org · 2026-04-09</span>
+            <span class="item-authors">Ketney Otto</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-section" id="cat-consumer-behavior-and-market-trends">
+      <div class="cat-header">
+        <div class="cat-title-row">
+          <h2 class="cat-title">Consumer Behavior and Market Trends</h2>
+          
+        </div>
+        <div class="cat-signals">
+          <span class="signal-chip trend-up">↑ 1 GDELT events</span>
+          <span class="signal-chip neutral">1 news</span>
+          <span class="signal-chip neutral">1 papers</span>
+          <span class="country-tag">AS</span>
+          <svg class="sparkline" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg"><polyline points="2.0,18.0 11.3,18.0 20.7,18.0 30.0,2.0 39.3,18.0 48.7,18.0 58.0,18.0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="synthesis-block">
+        <p class="synthesis-text">Across food safety, dietary transition, and retail practice, a common structural argument is emerging: interventions targeted at the consumer end of the supply chain consistently underperform relative to upstream or systemic reforms. Academic work on meat reduction finds that household provisioning routines — not point-of-purchase decisions — are the real locus of dietary inertia, directly challenging the individual-responsibility framing embedded in EU Farm-to-Fork policy. The bagged greens contamination literature reinforces this logic from a safety angle, where centralised industrial washing creates network-level risk that labelling schemes and voluntary compliance cannot adequately contain. Media coverage remains geographically narrow and thin — dominated by Australian import-labelling concerns — leaving the European policy dimensions of both food safety governance and behavioural intervention largely unreported, a gap worth monitoring as EU regulatory frameworks on both fronts come under increasing scrutiny.</p>
+      </div>
+
+      <div class="tab-container" data-section="consumer-behavior-and-market-trends">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="news-consumer-behavior-and-market-trends">📰 News (1)</button>
+          <button class="tab-btn"        data-tab="events-consumer-behavior-and-market-trends">📡 Media Events (1)</button>
+          <button class="tab-btn"        data-tab="papers-consumer-behavior-and-market-trends">🎓 Papers (1)</button>
+        </div>
+        <div class="tab-panel active" id="news-consumer-behavior-and-market-trends">
+          
+        <a href="https://www.huffpost.com/entry/you-may-want-to-think-twice-before-you-eat-bagged-lettuce-goog_l_69d7d792e4b048dba44bd46e" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">You May Want To Think Twice Before You Eat Bagged Lettuce</span>
+            <span class="item-meta">huffpost · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="events-consumer-behavior-and-market-trends">
+          <p class="radar-text">Consumer behavior and market trends coverage is thin but trending upward, with Australian media leading the conversation — currently centered on domestic farmer concerns over cheap imports and calls for revised food labeling legislation. The geographic footprint remains narrow, with AS dominating what little signal exists, suggesting broader regional and European dimensions of this topic are underrepresented in current media flows.</p>
+          
+        <a href="https://www.abc.net.au/news/2026-04-09/farmers-battling-cheap-imports-want-food-labelling-laws-reviewed/106525320" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.abc.net.au</span>
+            <span class="item-meta">2026-04-08 · AS</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="papers-consumer-behavior-and-market-trends">
+          
+        <a href="https://doi.org/10.1016/j.meatsci.2026.110099" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Consumer perspectives on reducing meat consumption: Why recommendations often fail to induce behaviour change?</span>
+            <span class="item-meta">Meat Science · 2026-04-03</span>
+            <span class="item-authors">Liisa Lähteenmäki</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-section" id="cat-food-systems-resilience">
+      <div class="cat-header">
+        <div class="cat-title-row">
+          <h2 class="cat-title">Food Systems Resilience</h2>
+          
+        </div>
+        <div class="cat-signals">
+          <span class="signal-chip trend-stable">→ 12 GDELT events</span>
+          <span class="signal-chip neutral">5 news</span>
+          <span class="signal-chip neutral">6 papers</span>
+          <span class="country-tag">NI</span> <span class="country-tag">ET</span> <span class="country-tag">GH</span> <span class="country-tag">US</span>
+          <svg class="sparkline" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg"><polyline points="2.0,11.8 11.3,2.0 20.7,13.1 30.0,4.5 39.3,4.5 48.7,18.0 58.0,18.0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="synthesis-block">
+        <p class="synthesis-text">The convergence across news reporting, academic literature, and media signals this week is unusually coherent: food system fragility is being reframed — empirically and analytically — as a governance design failure rather than a production shortfall, with structural vulnerabilities amplified by the very institutional architectures meant to contain them. Cases from Nigeria's post-harvest infrastructure deficit to transboundary contamination along the Thailand-Myanmar corridor echo the academic finding that centralized, input-intensive models accelerate cascading risk rather than absorb it, a dynamic now being demonstrated at the pathogen level by wheat blast and Fusarium wilt TR4 spreading faster than phytosanitary institutions can track. Where news and research most productively converge is on the effectiveness of decentralized, relationally embedded interventions — seed sovereignty networks, territorial governance structures, and community-coordinated supply chains — which both bodies of evidence identify as primary resilience infrastructure, not peripheral alternatives. The outstanding policy challenge, flagged more explicitly in academic work than in media, is measurement: without disaggregated data on displaced populations, gender-differentiated access, and informal network performance, the resource case for institutionalizing these models remains difficult to make at the scale EU and multilateral frameworks require.</p>
+      </div>
+
+      <div class="tab-container" data-section="food-systems-resilience">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="news-food-systems-resilience">📰 News (5)</button>
+          <button class="tab-btn"        data-tab="events-food-systems-resilience">📡 Media Events (12)</button>
+          <button class="tab-btn"        data-tab="papers-food-systems-resilience">🎓 Papers (6)</button>
+        </div>
+        <div class="tab-panel active" id="news-food-systems-resilience">
+          
+        <a href="https://timesofindia.indiatimes.com/life-style/food-news/the-farmer-who-preserved-900-rare-rice-varieties-the-mission-of-debal-deb/articleshow/130196776.cms" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">The farmer who preserved 900+ rare rice varieties: The mission of Debal Deb</span>
+            <span class="item-meta">toi · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://punchng.com/how-nigeria-wastes-38-million-tonnes-of-food-amid-worsening-hunger/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">How Nigeria wastes 38 million tonnes of food amid worsening hunger</span>
+            <span class="item-meta">punchng · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://www.nationthailand.com/blogs/news/world/40064984" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Kok River livelihoods battered by Myanmar mining pollution</span>
+            <span class="item-meta">nationthailand · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.jamaicaobserver.com/2026/04/11/farmers-benefit-isratech-resilience-farm-tour/" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Farmers to benefit from Isratech Resilience Farm Tour</span>
+            <span class="item-meta">jamaicaobserver · 2026-04-11</span>
+          </div>
+          <span class="relevance-badge">r7</span>
+        </a>
+
+        <a href="https://odishatv.in/odisha/can-state-cabinets-rs-220-cr-irrigation-push-transform-farming-in-western-odisha-11717247" target="_blank" rel="noopener" class="item-card news-card">
+          <div class="item-card-inner">
+            <span class="item-title">Can State Cabinet’s Rs 220 Cr irrigation push transform farming In Western Odisha?</span>
+            <span class="item-meta">odishatv · 2026-04-12</span>
+          </div>
+          <span class="relevance-badge">r6</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="events-food-systems-resilience">
+          <p class="radar-text">Coverage of food systems resilience is steady and geographically dispersed, with active signals emerging from the Global South — particularly Ethiopia, Ghana, and Nicaragua — alongside contributions from the US and Brazil. Themes cluster around smallholder vulnerability, post-harvest loss, climate-adaptive irrigation, and agroecological education, reflecting a broad but coherent discourse on structural food system reform. Monitoring coverage is strong with no significant gaps, suggesting the topic is receiving proportionate academic and policy-media attention relative to its complexity.</p>
+          
+        <a href="https://www.fian.org/en/public-food-programmes-are-a-powerful-tool-for-food-sovereignty-if-done-right/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.fian.org</span>
+            <span class="item-meta">2026-04-09 · BR</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://capitalethiopia.com/2026/04/05/over-70-of-smallholder-farmers-face-significant-post-harvest-losses/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">capitalethiopia.com</span>
+            <span class="item-meta">2026-04-05 · ET</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://www.scidev.net/global/opinions/irrigation-a-must-for-smallholders-in-changing-climate/" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.scidev.net</span>
+            <span class="item-meta">2026-04-09 · GH</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://vermontbiz.com/news/2026/april/09/uvm-launches-first-online-masters-degree-agroecology-us" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">vermontbiz.com</span>
+            <span class="item-meta">2026-04-09 · US</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+
+        <a href="https://www.ilri.org/news/closing-silage-quality-gap-demand-driven-study-smallholder-dairy-farmers-kenya" target="_blank" rel="noopener" class="item-card event-card">
+          <div class="item-card-inner">
+            <span class="item-title">www.ilri.org</span>
+            <span class="item-meta">2026-04-08 · KE</span>
+          </div>
+          <span class="relevance-badge">r8</span>
+        </a>
+        </div>
+        <div class="tab-panel" id="papers-food-systems-resilience">
+          
+        <a href="https://doi.org/10.34218/ijefbm_04_01_001" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">BEYOND THE LINEAR MODEL: A COMPARATIVE ANALYSIS OF TRANSITIONING FROM “TAKE–MAKE–DISPOSE” TO REGENERATIVE SYSTEMS IN AGRICULTURE SECTOR</span>
+            <span class="item-meta">Unknown journal · 2026-04-02</span>
+            <span class="item-authors">Sadhana Ganesh Awate</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.60022/3(4)-3s" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">МЕХАНІЗМИ ЗАБЕЗПЕЧЕННЯ ПРОДОВОЛЬЧОЇ БЕЗПЕКИ ТЕРИТОРІЙ У ПАРАДИГМІ СТАЛОГО РОЗВИТКУ</span>
+            <span class="item-meta">Актуальні проблеми сталого розвитку · 2026-04-09</span>
+            <span class="item-authors">Олена Юріївна Бочко, Надія Романівна Кубрак</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.3389/fsufs.2026.1807815" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Territorial food networks under pressure: women, governance and low-carbon food infrastructures</span>
+            <span class="item-meta">Frontiers in Sustainable Food Systems · 2026-04-09</span>
+            <span class="item-authors">Fernando Adrihel Sarubbi-Baltazar, Iván López-García et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.5281/zenodo.18979513" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Emerging Plant Diseases and Their Threat to Global Food Security</span>
+            <span class="item-meta">Zenodo (CERN European Organization for Nuclear Research) · 2026-06-12</span>
+            <span class="item-authors">Horn Sarun</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+
+        <a href="https://doi.org/10.1186/s40066-025-00576-7" target="_blank" rel="noopener" class="item-card paper-card">
+          <div class="item-card-inner">
+            <span class="item-title">Sub-Saharan Africa's unparalleled food crisis: a survey on root causes and unsuccessful interventions</span>
+            <span class="item-meta">Agriculture &amp; Food Security · 2026-04-09</span>
+            <span class="item-authors">Victoria Bell, Jorge Ferrão et al.</span>
+          </div>
+          <span class="relevance-badge">r9</span>
+        </a>
+        </div>
+      </div>
+    </section>
+
+  <!-- RESEARCH DIRECTIONS -->
+  <hr class="section-divider"/>
+  <h2 class="section-heading">Emerging Research Directions</h2>
+  <p class="section-label">AI-identified from this week's academic &amp; news evidence base</p>
+  <br/>
+  
+        <div class="direction-card">
+          <span class="direction-number">01</span>
+          <div class="direction-body">
+            <h3 class="direction-title">Governance Sequencing for Cold-Chain Resilience Finance</h3>
+            <p class="direction-abstract">Multiple synthesis streams identify cold-chain reliability and institutional capacity—not algorithmic optimization—as binding constraints on food supply chain resilience, particularly in fragmented, import-dependent, and low-income markets. Yet no robust framework exists for sequencing and financing these investments before digitization layers are added. Research combining stochastic infrastructure modeling, political economy analysis, and last-mile case studies from island and tropical economies would help close this gap, with direct relevance to multilateral emergency instruments currently prioritizing technological fixes over governance scaffolding.</p>
+          </div>
+        </div>
+
+        <div class="direction-card">
+          <span class="direction-number">02</span>
+          <div class="direction-body">
+            <h3 class="direction-title">Policy Coherence Metrics Across Competing Ministerial Mandates</h3>
+            <p class="direction-abstract">Evidence from EU meat promotion campaigns, Sri Lanka's fertiliser ban, and SNAP eligibility restrictions converges on a shared diagnosis: food security vulnerabilities are architecturally embedded in fragmented multi-ministerial governance, not correctable through better targeting alone. What is missing is an operational measurement framework for quantifying policy incoherence across agriculture, health, trade, and security mandates. Comparative institutional research developing coherence scorecards—piloted within EU Farm-to-Fork implementation contexts—would provide the evidence base needed to make governance redesign politically tractable and cross-nationally comparable.</p>
+          </div>
+        </div>
+
+        <div class="direction-card">
+          <span class="direction-number">03</span>
+          <div class="direction-body">
+            <h3 class="direction-title">Enabling Infrastructure for Sustainable Dietary Transition</h3>
+            <p class="direction-abstract">Across Indonesia, Saudi Arabia, Sweden, and Germany, positive sustainability attitudes consistently fail to produce dietary change when labelling, catering norms, and product reformulation incentives remain misaligned. The German plant-based market, where under 20% of products carry Nutri-Score and iodized salt adoption is negligible, exemplifies market innovation outpacing regulatory guidance. Research integrating behavioral science with food system transition theory—testing upstream supply-side defaults against consumer-focused nudges—is urgently needed to identify which enabling infrastructure investments produce durable, population-level dietary shifts without sacrificing political tractability.</p>
+          </div>
+        </div>
+
+  <!-- COMMUNICATIONS -->
+  <hr class="section-divider"/>
+  <h2 class="section-heading">Communications Drafts</h2>
+  <p class="section-label">LinkedIn posts &amp; email newsletter — ready to review &amp; publish</p>
+  <br/>
+  
+        <div class="comms-card linkedin-card">
+          <div class="comms-card-header">
+            <span class="comms-label">LinkedIn</span>
+            <span class="comms-theme">Governance design failures as the root cause of food system fragility</span>
+          </div>
+          <p class="comms-text">This week's research and news signals point to a conclusion that is difficult to avoid: the most consequential failures in food systems are not production shortfalls or technology gaps. They are governance design failures — and they are institutionally embedded, not incidental.
+
+The evidence is precise. Sri Lanka's fertiliser import ban saved $63 million in urea costs while generating an estimated $315 million annual net loss. EU meat promotion campaigns in countries like Slovenia actively undercut Farm-to-Fork dietary targets. In the US, SNAP eligibility restrictions and agriculture's exclusion from national security procurement frameworks in the UK reflect the same structural pattern: food security treated as a rhetorical by-product of economic or immigration policy, rather than a cross-sector strategic commitment.
+
+The supply chain dimension compounds this picture. Middle East conflict exposure is revealing how deeply efficiency-optimised supply chains remain hostage to single upstream inputs — petrochemical feedstocks, fertiliser flows, contested shipping corridors. IMF projections of 45 million additional people facing acute food insecurity are not abstractions. They are the measurable cost of governance architectures that consistently prioritise technological fixes over the institutional scaffolding those fixes require.
+
+The redesign challenge here is not technical. No improvement in targeting or funding resolves vulnerabilities that are structurally embedded in how food policy authority is fragmented across ministries with competing mandates. That is where the analytical and policy focus needs to be.
+
+#FoodPolicy #FoodSecurity #GovernanceReform</p>
+        </div>
+
+        <div class="comms-card linkedin-card">
+          <div class="comms-card-header">
+            <span class="comms-label">LinkedIn</span>
+            <span class="comms-theme">Sustainable dietary transition is blocked by missing policy infrastructure, not consumer indifference</span>
+          </div>
+          <p class="comms-text">A consistent argument is emerging across nutrition research, food technology reporting, and sustainable consumption literature: the primary obstacle to dietary transition is not scientific uncertainty, and it is not consumer indifference. It is the absence of governance architectures that make lower-impact choices the default.
+
+Evidence from Indonesia, Saudi Arabia, and Sweden confirms that positive sustainability attitudes reliably fail to translate into measurable dietary change without enabling policy infrastructure. The German plant-based market makes the gap concrete: fewer than one in five products carries Nutri-Score labelling, and iodized salt adoption remains negligible, even as market innovation accelerates. Consumers are being offered more options and less guidance simultaneously.
+
+The same logic applies upstream. Mycoprotein research is strengthening the evidence base for alternative proteins. LCA methodologies are improving. Biotechnology investment — from JBS in Brazil to crop residue valorisation in India — is accelerating. Yet LCA fragmentation, siloed compliance instruments, and the absence of harmonized digital decision-support architectures mean that technically sophisticated solutions consistently struggle to achieve regulatory uptake or cross-border comparability.
+
+Media coverage of these issues remains dominated by food waste and operational framing, which means the upstream nutrition governance debate is not finding proportionate traction in public discourse — even as the window for institutional standardisation within EU food and farm governance remains open but narrowing.
+
+The implication for research and policy is direct: supply-side and environmental interventions need governance architecture to match. Innovation without standardisation reproduces the fragility it is meant to resolve.
+
+#SustainableFood #NutritionPolicy #FoodSystems</p>
+        </div>
+  
+    <div class="comms-card email-card">
+      <div class="comms-card-header">
+        <span class="comms-label">Email</span>
+        <span class="comms-theme">Food Systems: The Governance Gap Widening</span>
+      </div>
+      <p class="comms-preview-line"><em>Preview: This week's research digest finds policy architecture — not technology — as the critical fault line.</em></p>
+      <p class="comms-text">Dear colleagues,<br><br>This week's digest carries a message that cuts across every category we track: the most consequential failures in food systems are governance design failures, not gaps in production capacity or technological readiness. Whether the lens is climate resilience, dietary transition, or geopolitical supply chain stress, a consistent pattern emerges — institutional frameworks are systematically misaligned with the outcomes they nominally pursue, and interventions targeted at consumers or technologies consistently underperform against the structural reforms that remain politically harder to achieve.<br><br>The evidence is striking in its breadth. Sri Lanka's fertiliser import ban saved $63 million in urea costs while generating an estimated $315 million in annual net losses. EU meat promotion campaigns in member states actively counterwork Farm-to-Fork dietary targets. SNAP eligibility restrictions in the US and agriculture's exclusion from UK national security procurement both reflect the same underlying failure: food security treated as a by-product of economic or immigration policy rather than a cross-sector strategic commitment. Meanwhile, research on climate shock recovery finds that disruptions take nearly three years to resolve on average, while single-practice interventions yield limited systemic gains — a finding that maps directly onto the institutionally shallow responses we see reported from the Sahel, Nigeria, and Mediterranean Europe.<br><br>On sustainable consumption, the picture is equally sobering. Academic evidence from Indonesia, Saudi Arabia, and Sweden confirms that positive sustainability attitudes reliably fail to translate into dietary change without enabling policy infrastructure. The German plant-based market — where fewer than one in five products carries Nutri-Score labelling — exemplifies how market innovation can outpace regulatory guidance, leaving consumers without meaningful decision support. And on supply chains, geopolitical stress in the Middle East continues to expose how efficiency-optimised systems remain hostage to single upstream inputs, with the IMF warning of 45 million additional people facing acute food insecurity if disruptions deepen.<br><br>The common thread across all of this is a governance gap that biotechnology and systems innovation alone cannot close — and may inadvertently widen if the regulatory scaffolding does not keep pace. As EU frameworks on labelling, farm-to-fork, and food safety come under increasing scrutiny, the window for institutional standardisation remains open, but it is narrowing.<br><br>We welcome your perspectives on these themes. If any of the findings resonate with challenges you are navigating in your own sector, or if you would like to discuss the full synthesis behind any of these areas, please do not hesitate to reach out. Sharing this newsletter with colleagues working on food policy, trade, or sustainability governance would also be greatly appreciated.<br><br>Best regards,<br>The Resilient and Responsible Food Consumption Research Group</p>
+    </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span>Generated April 12, 2026 · Plate &amp; Future pipeline</span>
+    <span>M1 30 · M2 108 · M3 50</span>
+  </footer>
+
+</div>
+
+<!-- TAB SWITCHING SCRIPT -->
+<script>
+  document.querySelectorAll('.tab-container').forEach(container => {
+    container.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabId = btn.dataset.tab;
+        container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>
