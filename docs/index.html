@@ -67,1016 +67,317 @@
             z-index: 9999;
         }
 
-        h1, h2, h3, h4, h5 {
-            font-family: 'Playfair Display', Georgia, serif;
-            line-height: 1.25;
-            font-weight: 700;
-        }
-
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.25; font-weight: 700; }
         a { color: var(--primary-light); text-decoration: none; transition: color 0.15s; }
         a:hover { color: var(--accent); }
         p { margin-bottom: 1em; }
         p:last-child { margin-bottom: 0; }
 
-        /* ===================== SCROLL PROGRESS ===================== */
+        /* SCROLL */
         #scrollBar {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--accent));
-            z-index: 10000;
-            width: 0%;
+            z-index: 10000; width: 0%;
             transition: width 0.1s linear;
         }
 
-        /* ===================== TOP NAV ===================== */
+        /* TOP NAV */
         #topNav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
+            position: fixed; top: 0; left: 0; right: 0;
             height: var(--topnav-h);
             background: var(--bg);
             border-bottom: 1px solid var(--border);
             z-index: 200;
-            display: flex;
-            align-items: center;
-            padding: 0 2rem;
-            gap: 1.5rem;
+            display: flex; align-items: center;
+            padding: 0 2rem; gap: 1.5rem;
             backdrop-filter: blur(10px);
         }
 
         .topnav-brand {
             font-family: 'Playfair Display', serif;
-            font-weight: 800;
-            font-size: 1.05rem;
-            color: var(--primary);
-            white-space: nowrap;
-            flex-shrink: 0;
+            font-weight: 800; font-size: 1.05rem;
+            color: var(--primary); white-space: nowrap;
+            flex-shrink: 0; cursor: pointer;
         }
+        .topnav-brand em { font-style: italic; color: var(--accent); }
 
-        .topnav-brand em {
-            font-style: italic;
-            color: var(--accent);
-        }
+        .topnav-sep { width: 1px; height: 20px; background: var(--border-strong); flex-shrink: 0; }
 
-        .topnav-sep {
-            width: 1px;
-            height: 20px;
-            background: var(--border-strong);
-            flex-shrink: 0;
-        }
-
-        .topnav-chapters {
-            display: flex;
-            gap: 0.15rem;
-            flex: 1;
-        }
+        .topnav-chapters { display: flex; gap: 0.15rem; flex: 1; }
 
         .topnav-btn {
             font-family: 'DM Mono', monospace;
-            font-size: 0.67rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text3);
-            background: none;
-            border: none;
-            padding: 0.35rem 0.8rem;
-            cursor: pointer;
-            border-radius: 2px;
-            transition: all 0.15s;
-            white-space: nowrap;
+            font-size: 0.67rem; letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--text3); background: none; border: none;
+            border-bottom: 2px solid transparent;
+            padding: 0.35rem 0.8rem; cursor: pointer;
+            border-radius: 2px 2px 0 0; transition: all 0.15s; white-space: nowrap;
         }
-
         .topnav-btn:hover { color: var(--primary); background: var(--bg2); }
+        .topnav-btn.active { color: var(--primary); background: var(--bg2); border-bottom-color: var(--accent); }
 
-        .topnav-btn.active {
-            color: var(--primary);
-            background: var(--bg2);
-            border-bottom: 2px solid var(--accent);
-        }
-
-        .topnav-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-left: auto;
-            flex-shrink: 0;
-        }
+        .topnav-right { display: flex; align-items: center; gap: 1rem; margin-left: auto; flex-shrink: 0; }
 
         .search-wrap { position: relative; }
-
         .search-wrap input {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 2px;
+            background: var(--bg2); border: 1px solid var(--border); border-radius: 2px;
             padding: 0.3rem 0.8rem 0.3rem 2rem;
-            font-family: 'Source Serif 4', serif;
-            font-size: 0.82rem;
-            color: var(--text);
-            width: 200px;
-            outline: none;
-            transition: border-color 0.2s, width 0.3s;
+            font-family: 'Source Serif 4', serif; font-size: 0.82rem; color: var(--text);
+            width: 200px; outline: none; transition: border-color 0.2s, width 0.3s;
         }
-
-        .search-wrap input:focus {
-            border-color: var(--primary-muted);
-            width: 260px;
-        }
-
+        .search-wrap input:focus { border-color: var(--primary-muted); width: 260px; }
         .search-wrap input::placeholder { color: var(--text3); }
-
         .search-icon {
-            position: absolute;
-            left: 0.6rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text3);
-            font-size: 0.8rem;
-            pointer-events: none;
+            position: absolute; left: 0.6rem; top: 50%; transform: translateY(-50%);
+            color: var(--text3); font-size: 0.8rem; pointer-events: none;
         }
 
         .theme-btn {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 0.28rem 0.7rem;
-            font-size: 0.78rem;
-            color: var(--text2);
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
+            background: var(--bg2); border: 1px solid var(--border); border-radius: 20px;
+            padding: 0.28rem 0.7rem; font-size: 0.78rem; color: var(--text2);
+            cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.35rem;
         }
-
         .theme-btn:hover { border-color: var(--primary-muted); color: var(--primary); }
 
-        .nav-date {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.63rem;
-            color: var(--text3);
-            letter-spacing: 0.05em;
-        }
+        .nav-date { font-family: 'DM Mono', monospace; font-size: 0.63rem; color: var(--text3); letter-spacing: 0.05em; }
 
-        /* ===================== MAIN ===================== */
-        #main {
-            padding-top: var(--topnav-h);
-        }
+        /* MAIN */
+        #main { padding-top: var(--topnav-h); }
 
-        .page-section {
-            display: none;
-            padding: 3rem 4rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
+        .page-section { display: none; padding: 3rem 4rem; max-width: 1100px; margin: 0 auto; }
         .page-section.active { display: block; }
 
-        /* ===================== HERO ===================== */
-        #sec-hero {
-            display: block;
-            padding: 3rem 4rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        #sec-hero { display: block; padding: 3rem 4rem; max-width: 1100px; margin: 0 auto; }
 
+        /* VISSZA GOMB */
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'DM Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--text3); background: none;
+            border: 1px solid var(--border); padding: 0.4rem 1rem;
+            border-radius: 2px; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s;
+        }
+        .back-btn:hover { color: var(--primary); border-color: var(--primary); background: var(--bg2); }
+
+        /* HERO */
         .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.63rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--primary-muted);
-            margin-bottom: 1.2rem;
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            font-family: 'DM Mono', monospace; font-size: 0.63rem;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--primary-muted); margin-bottom: 1.2rem;
         }
-
-        .hero-eyebrow::before {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: var(--accent);
-        }
+        .hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
 
         .hero-h1 {
-            font-size: clamp(2.8rem, 5vw, 4.5rem);
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1.05;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
+            font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800;
+            color: var(--primary); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.5rem;
         }
+        .hero-h1 em { font-style: italic; color: var(--accent); }
 
-        .hero-h1 em {
-            font-style: italic;
-            color: var(--accent);
-        }
-
-        .hero-sub {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text3);
-            letter-spacing: 0.08em;
-            margin-bottom: 1.8rem;
-        }
+        .hero-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text3); letter-spacing: 0.08em; margin-bottom: 1.8rem; }
 
         .hero-szerk {
-            font-style: italic;
-            color: var(--text2);
-            font-size: 1.02rem;
-            border-left: 3px solid var(--accent);
-            padding-left: 1.2rem;
-            line-height: 1.85;
-            max-width: 640px;
+            font-style: italic; color: var(--text2); font-size: 1.02rem;
+            border-left: 3px solid var(--accent); padding-left: 1.2rem;
+            line-height: 1.85; max-width: 640px;
         }
 
-        .stats-row {
-            display: flex;
-            gap: 2.5rem;
-            margin-top: 2.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            flex-wrap: wrap;
-        }
+        .stats-row { display: flex; gap: 2rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+        .stat { border-left: 2px solid var(--accent); padding-left: 1rem; }
+        .stat-n { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1; }
+        .stat-l { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text3); letter-spacing: 0.06em; margin-top: 3px; }
 
-        .stat {
-            border-left: 2px solid var(--accent);
-            padding-left: 1rem;
-        }
-
-        .stat-n {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-        }
-
-        .stat-l {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.62rem;
-            color: var(--text3);
-            letter-spacing: 0.06em;
-            margin-top: 3px;
-        }
-
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.2rem;
-            margin-top: 3rem;
-        }
+        .overview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 3rem; }
 
         .overview-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-top: 3px solid var(--primary);
-            padding: 1.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
+            background: var(--surface); border: 1px solid var(--border);
+            border-top: 3px solid var(--primary); padding: 1.8rem;
+            cursor: pointer; transition: all 0.2s;
         }
+        .overview-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-top-color: var(--accent); }
 
-        .overview-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-3px);
-            border-top-color: var(--accent);
-        }
+        .overview-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.6rem; }
+        .overview-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        .overview-desc { font-size: 0.83rem; color: var(--text3); line-height: 1.65; }
+        .overview-meta { margin-top: 0.8rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--primary-muted); }
 
-        .overview-num {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 0.6rem;
-        }
+        /* SECTION HEADER */
+        .sec-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+        .sec-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--accent); letter-spacing: 0.12em; }
+        .sec-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--primary); }
+        .sec-rule { flex: 1; height: 1px; background: var(--border); }
 
-        .overview-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .overview-desc {
-            font-size: 0.83rem;
-            color: var(--text3);
-            line-height: 1.65;
-        }
-
-        .overview-meta {
-            margin-top: 0.8rem;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.62rem;
-            color: var(--primary-muted);
-        }
-
-        /* ===================== SECTION HEADER ===================== */
-        .sec-header {
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1.2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .sec-num {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--accent);
-            letter-spacing: 0.12em;
-        }
-
-        .sec-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .sec-rule {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        /* ===================== VEZÉRCIKK ===================== */
-        .vezercikk-layout {
-            display: grid;
-            grid-template-columns: 200px 1px 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .vezercikk-aside {
-            position: sticky;
-            top: calc(var(--topnav-h) + 1.5rem);
-        }
-
-        .vezercikk-aside-label {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.62rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
+        /* VEZÉRCIKK */
+        .vezercikk-layout { display: grid; grid-template-columns: 200px 1px 1fr; gap: 3rem; align-items: start; }
+        .vezercikk-aside { position: sticky; top: calc(var(--topnav-h) + 1.5rem); }
+        .vezercikk-aside-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
         .vezercikk-divider { background: var(--border); }
-
-        .vezercikk-body {
-            font-size: 1.02rem;
-            color: var(--text2);
-            line-height: 1.88;
-        }
-
+        .vezercikk-body { font-size: 1.02rem; color: var(--text2); line-height: 1.88; }
         .vezercikk-body p:first-child::first-letter {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            float: left;
-            line-height: 0.82;
-            margin-right: 0.08em;
-            margin-top: 0.12em;
+            font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 800;
+            color: var(--primary); float: left; line-height: 0.82; margin-right: 0.08em; margin-top: 0.12em;
         }
 
-        /* ===================== KATEGÓRIA SZEKCIÓ ===================== */
-        .kat-tabs {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
+        /* KATEGÓRIA TABÖK */
+        .kat-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
         .kat-tab {
-            font-family: 'Source Serif 4', serif;
-            font-size: 0.9rem;
-            padding: 0.5rem 1.2rem;
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            cursor: pointer;
-            background: var(--surface);
-            color: var(--text2);
-            transition: all 0.2s;
+            font-family: 'Source Serif 4', serif; font-size: 0.9rem;
+            padding: 0.5rem 1.2rem; border: 1px solid var(--border); border-radius: 2px;
+            cursor: pointer; background: var(--surface); color: var(--text2); transition: all 0.2s;
         }
-
         .kat-tab:hover { border-color: var(--primary-muted); color: var(--primary); }
-
-        .kat-tab.active {
-            background: var(--primary);
-            color: #f5f0e8;
-            border-color: var(--primary);
-        }
+        .kat-tab.active { background: var(--primary); color: #f5f0e8; border-color: var(--primary); }
 
         .kat-panel { display: none; }
-        .kat-panel.active {
-            display: block;
-            animation: fadeUp 0.3s ease;
-        }
+        .kat-panel.active { display: block; animation: fadeUp 0.3s ease; }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(6px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        .kat-intro {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-        }
+        .kat-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+        .kat-title-big { font-size: 1.9rem; font-weight: 800; color: var(--primary); margin-bottom: 0.4rem; }
+        .kat-desc-mono { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text3); letter-spacing: 0.03em; line-height: 1.6; }
+        .kat-narrativa-text { font-size: 0.93rem; color: var(--text2); line-height: 1.88; }
 
-        .kat-title-big {
-            font-size: 1.9rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.4rem;
-        }
-
-        .kat-desc-mono {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.72rem;
-            color: var(--text3);
-            letter-spacing: 0.03em;
-            line-height: 1.6;
-        }
-
-        .kat-narrativa-text {
-            font-size: 0.93rem;
-            color: var(--text2);
-            line-height: 1.88;
-        }
-
-        /* ===================== COLLAPSIBLE ===================== */
-        .collapsible {
-            border: 1px solid var(--border);
-            margin-bottom: 1rem;
-            border-radius: 2px;
-            overflow: hidden;
-        }
+        /* COLLAPSIBLE */
+        .collapsible { border: 1px solid var(--border); margin-bottom: 1rem; border-radius: 2px; overflow: hidden; }
 
         .collapsible-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.1rem 1.5rem;
-            cursor: pointer;
-            background: var(--surface);
-            transition: background 0.15s;
-            border: none;
-            width: 100%;
-            text-align: left;
-            gap: 1rem;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.1rem 1.5rem; cursor: pointer; background: var(--surface);
+            transition: background 0.15s; border: none; width: 100%; text-align: left; gap: 1rem;
         }
-
         .collapsible-header:hover { background: var(--bg2); }
-        .collapsible-header.open  { background: var(--bg2); }
+        .collapsible-header.open { background: var(--bg2); }
 
-        .collapsible-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex: 1;
-            min-width: 0;
-        }
+        .collapsible-left { display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0; }
+        .collapsible-title { font-family: 'Playfair Display', serif; font-size: 1.08rem; font-weight: 700; color: var(--primary); white-space: nowrap; }
+        .collapsible-meta { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text3); letter-spacing: 0.04em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        .collapsible-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.08rem;
-            font-weight: 700;
-            color: var(--primary);
-            white-space: nowrap;
-        }
-
-        .collapsible-meta {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--text3);
-            letter-spacing: 0.04em;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        /* NAGY, LÁTHATÓ IKON */
         .collapsible-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--bg3);
-            border: 1px solid var(--border-strong);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: transform 0.25s, background 0.15s;
-            font-size: 1rem;
-            color: var(--primary);
-            font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--bg3); border: 1px solid var(--border-strong);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: transform 0.25s, background 0.15s;
+            font-size: 1.1rem; color: var(--primary); font-weight: 700; line-height: 1;
         }
+        .collapsible-header:hover .collapsible-icon { background: var(--primary); color: #f5f0e8; border-color: var(--primary); }
+        .collapsible-header.open .collapsible-icon { transform: rotate(180deg); background: var(--primary); color: #f5f0e8; border-color: var(--primary); }
 
-        .collapsible-header:hover .collapsible-icon {
-            background: var(--primary);
-            color: #f5f0e8;
-            border-color: var(--primary);
-        }
-
-        .collapsible-header.open .collapsible-icon {
-            transform: rotate(180deg);
-            background: var(--primary);
-            color: #f5f0e8;
-            border-color: var(--primary);
-        }
-
-        .collapsible-body {
-            display: none;
-            padding: 1.5rem;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-        }
-
+        .collapsible-body { display: none; padding: 1.5rem; background: var(--surface); border-top: 1px solid var(--border); }
         .collapsible-body.open { display: block; }
 
-        /* ===================== VEZETŐ CIKK ===================== */
-        .vezeto-box {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--accent);
-            padding: 1.8rem;
-        }
+        /* VEZETŐ CIKK */
+        .vezeto-box { background: var(--bg); border: 1px solid var(--border); border-left: 4px solid var(--accent); padding: 1.8rem; }
+        .vezeto-badge { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+        .vezeto-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; line-height: 1.35; }
+        .vezeto-meta { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text3); display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
 
-        .vezeto-badge {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.62rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 0.8rem;
-        }
-
-        .vezeto-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            line-height: 1.35;
-        }
-
-        .vezeto-meta {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--text3);
-            display: flex;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.2rem;
-        }
-
-        .vezeto-text {
-            font-size: 0.95rem;
-            color: var(--text2);
-            line-height: 1.88;
-            max-height: 260px;
-            overflow: hidden;
-            position: relative;
-            transition: max-height 0.4s ease;
-        }
-
+        .vezeto-text { font-size: 0.95rem; color: var(--text2); line-height: 1.88; max-height: 260px; overflow: hidden; position: relative; transition: max-height 0.4s ease; }
         .vezeto-text.expanded { max-height: 9999px; }
-
-        .vezeto-text::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 70px;
-            background: linear-gradient(transparent, var(--bg));
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
+        .vezeto-text::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 70px; background: linear-gradient(transparent, var(--bg)); pointer-events: none; transition: opacity 0.3s; }
         .vezeto-text.expanded::after { opacity: 0; }
 
-        /* ===================== CARDS ===================== */
-        .tag-filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 1.2rem;
-            padding: 0.8rem 1rem;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            align-items: center;
-        }
-
-        .tag-filter-label {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
-            color: var(--text3);
-            text-transform: uppercase;
-            margin-right: 0.3rem;
-        }
-
-        .tag-clear-btn {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.6rem;
-            color: var(--accent);
-            cursor: pointer;
-            background: none;
-            border: 1px solid var(--accent);
-            padding: 0.15rem 0.5rem;
-            border-radius: 2px;
-            letter-spacing: 0.05em;
-            transition: all 0.15s;
-            display: none;
-            margin-left: auto;
-        }
-
+        /* TAG FILTER */
+        .tag-filter-bar { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; padding: 0.8rem 1rem; background: var(--bg2); border: 1px solid var(--border); align-items: center; }
+        .tag-filter-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--text3); text-transform: uppercase; margin-right: 0.3rem; }
+        .tag-clear-btn { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--accent); cursor: pointer; background: none; border: 1px solid var(--accent); padding: 0.15rem 0.5rem; border-radius: 2px; letter-spacing: 0.05em; transition: all 0.15s; display: none; margin-left: auto; }
         .tag-clear-btn.visible { display: inline; }
         .tag-clear-btn:hover { background: var(--accent); color: #f5f0e8; }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 1rem;
-        }
+        /* CARDS */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1rem; }
 
-        .card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 1.2rem;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 3px;
-            background: var(--primary);
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.2s;
-        }
-
+        .card { background: var(--bg); border: 1px solid var(--border); padding: 1.2rem; transition: all 0.2s; position: relative; }
+        .card::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--primary); transform: scaleY(0); transform-origin: bottom; transition: transform 0.2s; }
         .card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
         .card:hover::after { transform: scaleY(1); }
         .card.filtered-out { opacity: 0.18; pointer-events: none; }
         .card.search-hidden { display: none; }
 
-        .card-source-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
+        .card-source-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+        .card-source-name { font-family: 'DM Mono', monospace; font-size: 0.61rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary-muted); }
 
-        .card-source-name {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.61rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--primary-muted);
-        }
+        .score-display { display: flex; align-items: center; gap: 0.4rem; }
+        .score-bar { width: 38px; height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+        .score-fill { height: 100%; background: linear-gradient(90deg, var(--primary-muted), var(--accent)); }
+        .score-val { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--text3); }
 
-        .score-display {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
+        .card-title { font-family: 'Playfair Display', serif; font-size: 0.98rem; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 0.5rem; }
+        .card-desc { font-size: 0.81rem; color: var(--text3); line-height: 1.65; margin-bottom: 0.7rem; }
 
-        .score-bar {
-            width: 38px;
-            height: 3px;
-            background: var(--bg3);
-            border-radius: 2px;
-            overflow: hidden;
-        }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.7rem; }
+        .tag { font-family: 'DM Mono', monospace; font-size: 0.59rem; letter-spacing: 0.04em; padding: 0.18rem 0.55rem; background: var(--bg2); border: 1px solid var(--border); color: var(--text3); cursor: pointer; transition: all 0.15s; border-radius: 1px; }
+        .tag:hover, .tag.active { background: var(--primary); color: #f5f0e8; border-color: var(--primary); }
 
-        .score-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-muted), var(--accent));
-        }
+        .card-foot { display: flex; align-items: center; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.61rem; color: var(--text3); }
+        .card-foot a { color: var(--primary-light); font-size: 0.78rem; font-weight: 600; padding: 0.2rem 0.6rem; border: 1px solid var(--border); border-radius: 2px; transition: all 0.15s; }
+        .card-foot a:hover { background: var(--primary); color: #f5f0e8; border-color: var(--primary); }
 
-        .score-val {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.58rem;
-            color: var(--text3);
-        }
-
-        .card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.98rem;
-            font-weight: 700;
-            color: var(--text);
-            line-height: 1.4;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-desc {
-            font-size: 0.81rem;
-            color: var(--text3);
-            line-height: 1.65;
-            margin-bottom: 0.7rem;
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-            margin-bottom: 0.7rem;
-        }
-
-        .tag {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.59rem;
-            letter-spacing: 0.04em;
-            padding: 0.18rem 0.55rem;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            color: var(--text3);
-            cursor: pointer;
-            transition: all 0.15s;
-            border-radius: 1px;
-        }
-
-        .tag:hover, .tag.active {
-            background: var(--primary);
-            color: #f5f0e8;
-            border-color: var(--primary);
-        }
-
-        .card-foot {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.61rem;
-            color: var(--text3);
-        }
-
-        .card-foot a {
-            color: var(--primary-light);
-            font-size: 0.78rem;
-            font-weight: 600;
-            padding: 0.2rem 0.6rem;
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            transition: all 0.15s;
-        }
-
-        .card-foot a:hover {
-            background: var(--primary);
-            color: #f5f0e8;
-            border-color: var(--primary);
-        }
-
-        /* ===================== TOVÁBBI CIKKEK ===================== */
-        .tovabbi-item {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 1rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border);
-            transition: padding-left 0.15s;
-        }
-
+        /* TOVÁBBI */
+        .tovabbi-item { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); transition: padding-left 0.15s; }
         .tovabbi-item:hover { padding-left: 0.5rem; }
         .tovabbi-item:last-child { border-bottom: none; }
-
         .tovabbi-ttitle { font-size: 0.87rem; color: var(--text2); }
+        .tovabbi-src { font-family: 'DM Mono', monospace; font-size: 0.61rem; color: var(--primary-muted); white-space: nowrap; flex-shrink: 0; }
 
-        .tovabbi-src {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.61rem;
-            color: var(--primary-muted);
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
+        /* EXPAND */
+        .expand-btn { margin-top: 1rem; background: none; border: 1px solid var(--border-strong); padding: 0.4rem 1.1rem; font-family: 'DM Mono', monospace; font-size: 0.67rem; letter-spacing: 0.08em; color: var(--primary-muted); cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+        .expand-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--bg2); }
 
-        /* ===================== EXPAND BTN ===================== */
-        .expand-btn {
-            margin-top: 1rem;
-            background: none;
-            border: 1px solid var(--border-strong);
-            padding: 0.4rem 1.1rem;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.67rem;
-            letter-spacing: 0.08em;
-            color: var(--primary-muted);
-            cursor: pointer;
-            border-radius: 2px;
-            transition: all 0.2s;
-        }
+        /* TUDOMÁNYOS */
+        .academic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        .academic-featured { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--primary); padding: 1.8rem; box-shadow: var(--shadow); }
+        .academic-badge { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary-muted); margin-bottom: 0.7rem; }
+        .academic-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; line-height: 1.4; }
+        .academic-meta { font-family: 'DM Mono', monospace; font-size: 0.63rem; color: var(--text3); display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
 
-        .expand-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: var(--bg2);
-        }
-
-        /* ===================== TUDOMÁNYOS ===================== */
-        .academic-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .academic-featured {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-top: 3px solid var(--primary);
-            padding: 1.8rem;
-            box-shadow: var(--shadow);
-        }
-
-        .academic-badge {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.62rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--primary-muted);
-            margin-bottom: 0.7rem;
-        }
-
-        .academic-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .academic-meta {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.63rem;
-            color: var(--text3);
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .academic-onepager {
-            font-size: 0.88rem;
-            color: var(--text2);
-            line-height: 1.82;
-            max-height: 190px;
-            overflow: hidden;
-            position: relative;
-            transition: max-height 0.4s ease;
-        }
-
+        .academic-onepager { font-size: 0.88rem; color: var(--text2); line-height: 1.82; max-height: 190px; overflow: hidden; position: relative; transition: max-height 0.4s ease; }
         .academic-onepager.expanded { max-height: 9999px; }
-
-        .academic-onepager::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 55px;
-            background: linear-gradient(transparent, var(--surface));
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
+        .academic-onepager::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 55px; background: linear-gradient(transparent, var(--surface)); pointer-events: none; transition: opacity 0.3s; }
         .academic-onepager.expanded::after { opacity: 0; }
 
-        .academic-item {
-            padding: 1.2rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            margin-bottom: 0.75rem;
-            transition: all 0.2s;
-        }
-
+        .academic-item { padding: 1.2rem; background: var(--surface); border: 1px solid var(--border); margin-bottom: 0.75rem; transition: all 0.2s; }
         .academic-item:hover { border-color: var(--primary-muted); box-shadow: var(--shadow); }
+        .academic-item-title { font-family: 'Playfair Display', serif; font-size: 0.93rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; line-height: 1.4; }
+        .academic-abstract { font-size: 0.79rem; color: var(--text3); line-height: 1.7; margin-bottom: 0.5rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        .academic-item-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.93rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.35rem;
-            line-height: 1.4;
-        }
-
-        .academic-abstract {
-            font-size: 0.79rem;
-            color: var(--text3);
-            line-height: 1.7;
-            margin-bottom: 0.5rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* ===================== KÖZÖSSÉGI MÉDIA ===================== */
-        .social-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .social-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 1.8rem;
-        }
-
-        .social-platform {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.63rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .social-platform::before {
-            content: '';
-            width: 22px;
-            height: 1px;
-            background: var(--accent);
-        }
-
-        .social-text {
-            font-size: 0.92rem;
-            color: var(--text2);
-            line-height: 1.82;
-            white-space: pre-wrap;
-        }
-
-        .copy-btn {
-            margin-top: 1rem;
-            background: none;
-            border: 1px solid var(--border-strong);
-            padding: 0.38rem 1rem;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.08em;
-            color: var(--text3);
-            cursor: pointer;
-            border-radius: 2px;
-            transition: all 0.2s;
-        }
-
+        /* KÖZÖSSÉGI */
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .social-card { background: var(--surface); border: 1px solid var(--border); padding: 1.8rem; }
+        .social-platform { font-family: 'DM Mono', monospace; font-size: 0.63rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .social-platform::before { content: ''; width: 22px; height: 1px; background: var(--accent); }
+        .social-text { font-size: 0.92rem; color: var(--text2); line-height: 1.82; white-space: pre-wrap; }
+        .copy-btn { margin-top: 1rem; background: none; border: 1px solid var(--border-strong); padding: 0.38rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--text3); cursor: pointer; border-radius: 2px; transition: all 0.2s; }
         .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* ===================== FOOTER ===================== */
-        .site-footer {
-            padding: 2.5rem 4rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .footer-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
+        /* FOOTER */
+        .site-footer { padding: 2.5rem 4rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; max-width: 1100px; margin: 0 auto; }
+        .footer-brand { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--primary); }
         .footer-brand em { font-style: italic; color: var(--accent); }
+        .footer-meta { font-family: 'DM Mono', monospace; font-size: 0.61rem; color: var(--text3); letter-spacing: 0.04em; }
 
-        .footer-meta {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.61rem;
-            color: var(--text3);
-            letter-spacing: 0.04em;
-        }
-
-        /* ===================== RESPONSIVE ===================== */
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .page-section, #sec-hero { padding: 2rem 1.5rem; }
             .overview-grid { grid-template-columns: 1fr; }
-            .vezercikk-layout { grid-template-columns: 1fr; }
+            .vezercikk-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+            .vezercikk-aside { position: static; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+            .vezercikk-aside-label { display: none; }
             .vezercikk-divider { display: none; }
+            .stats-row { gap: 1.2rem; margin-top: 1.5rem; }
+            .stat-n { font-size: 1.5rem; }
             .kat-intro { grid-template-columns: 1fr; }
             .cards-grid { grid-template-columns: 1fr; }
             .academic-grid { grid-template-columns: 1fr; }
             .social-grid { grid-template-columns: 1fr; }
             .topnav-chapters { display: none; }
             .site-footer { padding: 2rem 1.5rem; }
+            .hero-h1 { font-size: 2.4rem; }
+            .nav-date { display: none; }
+            .search-wrap input { width: 160px; }
+            .search-wrap input:focus { width: 200px; }
         }
     </style>
 </head>
@@ -1084,9 +385,8 @@
 
 <div id="scrollBar"></div>
 
-<!-- TOP NAV -->
 <nav id="topNav">
-    <div class="topnav-brand">Tányér <em>&</em> Jövő</div>
+    <div class="topnav-brand" onclick="showSection('hero')">Tányér <em>&</em> Jövő</div>
     <div class="topnav-sep"></div>
     <div class="topnav-chapters">
         <button class="topnav-btn active" onclick="showSection('hero')">Áttekintés</button>
@@ -1110,7 +410,6 @@
 
 <div id="main">
 
-    <!-- HERO -->
     <section id="sec-hero">
         <div class="hero-eyebrow">Reziliens és Felelős Élelmiszerfogyasztás Kutatócsoport</div>
         <h1 class="hero-h1">Tányér <em>&</em> Jövő</h1>
@@ -1165,8 +464,8 @@ Jó olvasást kívánunk!</div>
         </div>
     </section>
 
-    <!-- VEZÉRCIKK -->
     <section id="sec-vezercikk" class="page-section">
+        <button class="back-btn" onclick="showSection('hero')">← Vissza az áttekintéshez</button>
         <div class="sec-header">
             <span class="sec-num">01</span>
             <h2 class="sec-title">Heti vezércikk</h2>
@@ -1176,7 +475,6 @@ Jó olvasást kívánunk!</div>
             <div class="vezercikk-aside">
                 <div class="vezercikk-aside-label">A hét áttekintése</div>
                 <div style="display:flex;flex-direction:column;gap:1.2rem;margin-top:0.5rem">
-                    
 <div class="stat">
     <div class="stat-n">6</div>
     <div class="stat-l">Témakör</div>
@@ -1192,16 +490,15 @@ Jó olvasást kívánunk!</div>
 <div class="stat">
     <div class="stat-n">257</div>
     <div class="stat-l">További cikk</div>
-</div>
-                </div>
+</div></div>
             </div>
             <div class="vezercikk-divider"></div>
             <div class="vezercikk-body"><p># A bizalom eróziója: amikor a fogyasztó rádöbben, hogy manipulálják</p><p>2026 májusának első felében a fogyasztói piacok három, látszólag független válsága fut össze egyetlen narratívába: az élelmiszer-biztonság ismételt kudarcai, a fenntarthatósági állítások leleplezett üressége és az infláció által kikényszerített radikális boltváltások együttesen jelzik, hogy a fogyasztói bizalom szerkezete fundamentálisan átalakul. Amit ezen a héten látunk, az nem egyszerűen piaci turbulencia vagy átmeneti zavar, hanem egy paradigmaváltás kezdete, amelyben a vásárlók már nem hajlandók elfogadni sem a márkák egészségügyi ígéreteit, sem a fenntarthatósági narratívákat, sem azt a korábbi feltételezést, hogy a drágább termék megbízhatóbb. A Spring &amp; Mulberry luxuscsokoládéjának szalmonella-botránya, amely napok alatt a teljes termékpalettára kiterjedt, tökéletes metaforája ennek a bizalmi válságnak: a prémium pozícionálás nem véd meg a gyártási inkompetenciától, sőt, a fokozatos eszkaláció pontosan azt az üzenetet közvetíti, hogy a vállalat nem is tudja, mi történik a saját termelési láncában.</p><p>Ez a bizalmi válság különösen fájdalmas azoknak a fogyasztóknak, akik tudatosan próbálnak felelős döntéseket hozni – és most rá kell döbbenniük, hogy az általuk megfizetett prémium árnak semmi köze a valódi minőséghez vagy fenntarthatósághoz. Az ausztrál kutatók szisztematikus elemzése kimutatta, hogy a csomagolásokra nyomtatott zöld állítások többsége tartalmilag üres. Ez együtt értelmeződik a hús- és tejipar klímavédelmi kampányainak nemzetközi leleplezésével. A marketing szakemberek számára ez a momentum különösen kényes: míg évtizedekig sikeresen építhettünk narratívákat a természetesség, a fenntarthatóság vagy az egészségesség köré, most kiderül, hogy a fogyasztók már nem veszik be ezeket a fogásokat. Az A2 Milk antibiotikum-szennyeződése és a Costco sajtjának Listeria-esete ugyanezt a mintát követi – a biztonsági incidensek már nem izoláltnak tűnnek, hanem egy rendszerszintű problémát jeleznek.</p><p>Az infláció nyomása alatt a fogyasztók olyan radikális válaszokat adnak, amelyek túlmutatnak a hagyományos költségcsökkentési stratégiákon. Már nem elég lecserélni a márkás terméket diszkontosra – az egész bolthálózatot váltják, új beszerzési csatornákat keresnek, és paradox módon mindez együtt jár egy tudatos szándékkal az egészségesebb táplálkozásra. A YouGov kutatása szerint a magyar háztartások többet szeretnének költeni zöldségre és gyümölcsre, míg a Kifli.hu Ments meg kategóriájának robbanásszerű sikere azt mutatja, hogy a fenntarthatóság és a gazdaságosság összekapcsolása működő modell lehet – ha hiteles. Ez az a pont, ahol a kutatói közösségnek újra kell gondolnia, mit jelent a reziliencia: már nem a márkaváltás flexibilitásáról van szó, hanem arról a képességről, hogy a fogyasztó teljesen új csatornákat és logikákat építsen be vásárlási döntéseibe.</p><p>A fehérjecentrikus narratíva megkérdőjelezése és a GLP-1 gyógyszerek piaci hatása eközben egy még mélyebb elmozdulást jelez: az élelmiszer mint információ koncepció térhódítását. A szingapúri viták a fehérjével dúsított termékek valódi értékéről, a svéd prediabéteszes kutatás komplex metabolikus válaszai és az ultra-feldolgozott élelmiszerek elleni tudományos bizonyítékok mind arra mutatnak, hogy a reduktív tápanyag-központú megközelítés kimerült. A Sam&#x27;s Club stratégiai felkészülése a fogyasztói kosár átalakulására nem marketing-fogás, hanem józan realitás: ha a vásárlók GLP-1 szerek hatására fizikailag is kevesebbet esznek, és közben tudatosan elfordulnak az ultra-feldolgozott termékektől, akkor a teljes kategóriastruktúrát át kell értékelni.</p><p>A hét legfontosabb üzenete kutatói szempontból: a fogyasztói reziliencia új definíciója épül éppen a szemünk előtt, és ez a definíció nem a márkahűségről vagy a kompromisszumok elfogadásáról szól, hanem a bizalom hiányának kreatív menedzseléséről. A vállalatoknak és márkáknak már nem elég zöldre festeni a csomagolást vagy fehérjével dúsítani a terméket – a fogyasztók most már azt várják, hogy bizonyítsák be, mit állítanak, és ha ezt nem tudják megtenni, akkor egyszerűen kilépnek az egész játszmából. Az élelmiszer-biztonság, a fenntarthatóság és a gazdaságosság hármas kényszere egy olyan új fogyasztói szegmenst hoz létre, amely sokkal szkeptikusabb, informáltabb és mobilabb, mint bármikor korábban – és aki eddig nem vette ezt komolyan, az most nézheti, ahogy a vásárlói bázisa más bolthálózatba, más beszerzési logikába és más értékrendszerbe költözik.</p></div>
         </div>
     </section>
 
-    <!-- KATEGÓRIÁK -->
     <section id="sec-kategoriak" class="page-section">
+        <button class="back-btn" onclick="showSection('hero')">← Vissza az áttekintéshez</button>
         <div class="sec-header">
             <span class="sec-num">02</span>
             <h2 class="sec-title">Témakörök</h2>
@@ -3119,8 +2416,8 @@ Az Európai Kardiológiai Társaság legújabb tudományos jelentése szerint az
 </div></div>
     </section>
 
-    <!-- TUDOMÁNY -->
     <section id="sec-tudomany" class="page-section">
+        <button class="back-btn" onclick="showSection('hero')">← Vissza az áttekintéshez</button>
         <div class="sec-header">
             <span class="sec-num">03</span>
             <h2 class="sec-title">Tudományos háttér</h2>
@@ -3135,10 +2432,10 @@ Az Európai Kardiológiai Társaság legújabb tudományos jelentése szerint az
         <span>2026 Ap</span>
         <a href="https://pubmed.ncbi.nlm.nih.gov/42075054/" target="_blank">DOI →</a>
     </div>
-    <div class="academic-onepager" id="op-14603">
+    <div class="academic-onepager" id="op-40032">
         <p># Összefoglaló marketing kutatók számára</p><p>## Környezeti, egészségügyi és társadalmi tudatosság mint a bioélelmiszer-választás mozgatórugói</p><p>**MIRŐL SZÓL?**</p><p>A tanulmány azt vizsgálja, hogy a fogyasztók környezeti, egészségügyi és társadalmi tudatossága hogyan befolyásolja a bioélelmiszerek választását, illetve milyen motivációs tényezők állnak a fenntartható élelmiszer-vásárlási döntések hátterében. A kutatás célja, hogy feltárja azokat a pszichológiai és értékalapú mechanizmusokat, amelyek a bio termékek iránti preferenciát meghatározzák.</p><p>**MÓDSZERTAN**</p><p>A vizsgálatot kvantitatív megközelítéssel végezték, feltehetően strukturált kérdőíves adatfelvétellel a fogyasztók körében. A különböző tudatossági dimenziókat és a bioélelmiszer-vásárlási szokásokat egyaránt mérték, majd statisztikai módszerekkel tárták fel a tudatossági tényezők és a vásárlási magatartás közötti összefüggéseket.</p><p>**FŐBB EREDMÉNYEK**</p><p>Mindhárom tudatossági dimenzió – a környezeti, az egészségügyi és a társadalmi felelősségtudat – szignifikáns hatást gyakorol a bioélelmiszerek választására. A környezeti tudatosság különösen erős prediktornak bizonyult, ami azt jelzi, hogy a fenntarthatósági megfontolások kulcsszerepet játszanak a bio termékek iránti keresletben. Az egészségtudatosság szintén meghatározó tényező, mivel a fogyasztók a bio termékeket egészségesebb alternatívának tekintik. A társadalmi tudatosság – amely a fair trade elvek és a termelők tisztességes megélhetésének támogatását foglalja magában – szintén jelentős motiváló erőt képvisel a célcsoport számára.</p><p>**FOGYASZTÓI MAGATARTÁS SZEMPONTJÁBÓL**</p><p>A kutatás rávilágít arra, hogy a bioélelmiszer-fogyasztók döntéshozatalában komplex értékrendszer működik, amely túlmutat a puszta termékjellemzőkön. A fogyasztók egyre inkább holisztikus szemléletet alkalmaznak vásárlási döntéseik meghozatalakor, és nemcsak saját érdekeiket, hanem a környezet és a társadalom érdekeit is figyelembe veszik. Ez a többdimenziós tudatosság különösen a reziliens fogyasztói magatartás jellemzője, amely képes ellenállni a rövidtávú költségszempontoknak a hosszútávú értékek érdekében.</p><p>**MARKETING KUTATÁSI HASZNOSÍTHATÓSÁG**</p><p>A reziliens és felelős élelmiszerfogyasztást vizsgáló kutatók számára ez a tanulmány fontos keretet nyújt a fogyasztói szegmentáció és a célzott kommunikációs stratégiák kidolgozásához. A három tudatossági dimenzió külön-külön is mérhető és aktiválható, így lehetőséget teremt arra, hogy a különböző fogyasztói szegmenseket eltérő üzenetekkel és értékajánlatokkal szólítsuk meg. A kutatás módszertana adaptálható más élelmiszer-kategóriákra is, ahol a fenntarthatósági és felelősségvállalási aspektusok egyre nagyobb jelentőséggel bírnak a vásárlási döntésekben.</p>
     </div>
-    <button class="expand-btn" id="ob-14603" onclick="toggleExpand('op-14603', 'ob-14603')">Tovább olvasom</button>
+    <button class="expand-btn" id="ob-40032" onclick="toggleExpand('op-40032', 'ob-40032')">Tovább olvasom</button>
 </div>
 <div class="academic-featured">
     <div class="academic-badge">⭐ Hét cikke</div>
@@ -3148,10 +2445,10 @@ Az Európai Kardiológiai Társaság legújabb tudományos jelentése szerint az
         <span>2026 Ap</span>
         <a href="https://pubmed.ncbi.nlm.nih.gov/42073330/" target="_blank">DOI →</a>
     </div>
-    <div class="academic-onepager" id="op-24316">
+    <div class="academic-onepager" id="op-89800">
         <p># Összefoglaló marketing kutatók számára</p><p>## A fenntartható élelmiszer-választás és vásárlási magatartás mérése és modellezése</p><p>**MIRŐL SZÓL?**</p><p>A tanulmány szisztematikus áttekintést nyújt arról, hogyan mérik és modellezik a kutatók a fenntartható élelmiszer-választást és vásárlási magatartást világszerte. A cikk célja a létező módszertani megközelítések és elméleti keretek feltérképezése, amelyek segítségével megérthetjük, hogyan hozzák meg a fogyasztók fenntarthatósági szempontokat figyelembe vevő élelmiszervásárlási döntéseiket.</p><p>**MÓDSZERTAN**</p><p>A szerzők szisztematikus irodalmi áttekintést végeztek, amelynek során átfogóan elemezték a fenntartható élelmiszer-választás kutatásában alkalmazott mérési eszközöket, kérdőíves technikákat és matematikai modelleket. A vizsgálat kiterjedt a különböző tudományterületeken publikált tanulmányok módszertani sajátosságainak azonosítására és kategorizálására.</p><p>**FŐBB EREDMÉNYEK**</p><p>A kutatás feltárta, hogy a fenntartható élelmiszer-választás mérésében rendkívül sokszínű módszertani paletta létezik, amely tükrözi a téma interdiszciplináris jellegét. A leggyakrabban alkalmazott modellek között szerepelnek a tervezett magatartás elméletén alapuló keretrendszerek, a diszkrét választási modellek, valamint a strukturális egyenletek módszerét alkalmazó megközelítések.</p><p>Jelentős hiányosság mutatkozik az egységes mérési standardok tekintetében, ami megnehezíti a különböző kutatások eredményeinek összehasonlíthatóságát. A tanulmány rávilágít arra is, hogy míg a szándék mérésére kifinomult eszközök állnak rendelkezésre, a tényleges vásárlási magatartás megfigyelése és modellezése továbbra is kihívást jelent a kutatók számára.</p><p>**FOGYASZTÓI MAGATARTÁS SZEMPONTJÁBÓL**</p><p>A vizsgálat megerősíti, hogy a fogyasztók fenntartható élelmiszer-választása komplex döntési folyamat eredménye, amelyben attitűdök, normák, értékek és kontextuális tényezők egyaránt szerepet játszanak. A kutatás rámutat a szándék és a tényleges vásárlás közötti szakadék jelentőségére – vagyis arra a jelenségre, hogy a fogyasztók fenntarthatósági szándékai gyakran nem tükröződnek a kosárba kerülő termékekben. A marketingkutatóknak ezért túl kell lépniük a pusztán attitűdméréseken, és valós vásárlási adatokra is támaszkodniuk kell.</p><p>**MARKETING KUTATÁSI HASZNOSÍTHATÓSÁG**</p><p>A tanulmány gyakorlati útmutatót nyújt a reziliens és felelős élelmiszerfogyasztást vizsgáló marketing kutatók számára a megfelelő mérési és modellezési eszközök kiválasztásához. Az áttekintés segít azonosítani azokat a módszertani megközelítéseket, amelyek leginkább alkalmasak a különböző kutatási kérdések megválaszolására, legyen szó kvalitatív feltárásról vagy kvantitatív hatásvizsgálatokról.</p><p>A multi-módszertanú kutatási design alkalmazása – például kérdőívek és vásárlási adatok kombinálása – jelentősen növelheti az eredmények validitását és gyakorlati hasznosíthatóságát a fenntartható fogyasztás ösztönzését célzó intervenciók tervezésében.</p>
     </div>
-    <button class="expand-btn" id="ob-24316" onclick="toggleExpand('op-24316', 'ob-24316')">Tovább olvasom</button>
+    <button class="expand-btn" id="ob-89800" onclick="toggleExpand('op-89800', 'ob-89800')">Tovább olvasom</button>
 </div><div>
 <div class="academic-item">
     <div class="academic-item-title">Mikor számít a figyelmeztetés? Egyéni és terméktulajdonságok szerepe az előoldali címkékre adott válaszokban</div>
@@ -3205,8 +2502,8 @@ Az Európai Kardiológiai Társaság legújabb tudományos jelentése szerint az
 </div></div></div>
     </section>
 
-    <!-- KÖZÖSSÉGI MÉDIA -->
     <section id="sec-social" class="page-section">
+        <button class="back-btn" onclick="showSection('hero')">← Vissza az áttekintéshez</button>
         <div class="sec-header">
             <span class="sec-num">04</span>
             <h2 class="sec-title">Kommunikációs anyagok</h2>
@@ -3248,38 +2545,22 @@ A hűség új definíciója született: ma már nem a márkához vagy üzlethez 
 
     <footer class="site-footer">
         <div class="footer-brand">Tányér <em>&</em> Jövő</div>
-        <div class="footer-meta">
-            Reziliens és Felelős Élelmiszerfogyasztás Kutatócsoport &nbsp;·&nbsp;
-            Generálva: 2026-05-14 &nbsp;·&nbsp; AI: Claude (Anthropic)
-        </div>
+        <div class="footer-meta">Reziliens és Felelős Élelmiszerfogyasztás Kutatócsoport &nbsp;·&nbsp; Generálva: 2026-05-14 &nbsp;·&nbsp; AI: Claude (Anthropic)</div>
     </footer>
 
 </div>
 
 <script>
-// ============ SECTION NAV ============
 const SECTION_IDX = { hero:0, vezercikk:1, kategoriak:2, tudomany:3, social:4 };
 
 function showSection(id) {
-    document.querySelectorAll('.page-section').forEach(s => {
-        s.classList.remove('active');
-        s.style.display = 'none';
-    });
+    document.querySelectorAll('.page-section').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
     document.getElementById('sec-hero').style.display = 'none';
-
     const sec = document.getElementById('sec-' + id);
-    if (sec) {
-        sec.classList.add('active');
-        sec.style.display = 'block';
-        window.scrollTo(0, 0);
-    }
-
-    document.querySelectorAll('.topnav-btn').forEach((b, i) => {
-        b.classList.toggle('active', i === SECTION_IDX[id]);
-    });
+    if (sec) { sec.classList.add('active'); sec.style.display = 'block'; window.scrollTo(0, 0); }
+    document.querySelectorAll('.topnav-btn').forEach((b, i) => b.classList.toggle('active', i === SECTION_IDX[id]));
 }
 
-// ============ THEME ============
 function toggleTheme() {
     const dark = document.documentElement.getAttribute('data-theme') === 'dark';
     document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
@@ -3295,14 +2576,12 @@ function toggleTheme() {
     }
 })();
 
-// ============ SCROLL PROGRESS ============
 window.addEventListener('scroll', () => {
     const d = document.documentElement;
     const pct = (d.scrollTop / (d.scrollHeight - d.clientHeight)) * 100 || 0;
     document.getElementById('scrollBar').style.width = pct + '%';
 });
 
-// ============ KATEGÓRIA TABÖK ============
 function showKat(id) {
     document.querySelectorAll('.kat-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.kat-tab').forEach(t => t.classList.remove('active'));
@@ -3310,13 +2589,11 @@ function showKat(id) {
     document.querySelector('[data-katid="' + id + '"]')?.classList.add('active');
 }
 
-// ============ COLLAPSIBLE ============
 function toggleCollapsible(id) {
     document.getElementById('cb-' + id)?.classList.toggle('open');
     document.getElementById('ch-' + id)?.classList.toggle('open');
 }
 
-// ============ EXPAND ============
 function toggleExpand(cid, bid) {
     const c = document.getElementById(cid);
     const b = document.getElementById(bid);
@@ -3326,9 +2603,7 @@ function toggleExpand(cid, bid) {
     }
 }
 
-// ============ TAG SZŰRÉS ============
 let activeTag = null;
-
 function filterByTag(tag, el) {
     if (activeTag === tag) {
         activeTag = null;
@@ -3354,7 +2629,6 @@ function clearTagFilter() {
     document.querySelectorAll('.tag-clear-btn').forEach(b => b.classList.remove('visible'));
 }
 
-// ============ KERESÉS ============
 let searchTimer;
 function handleSearch(q) {
     clearTimeout(searchTimer);
@@ -3369,7 +2643,6 @@ function handleSearch(q) {
     }, 200);
 }
 
-// ============ COPY ============
 function copyText(id) {
     const text = document.getElementById(id)?.textContent || '';
     navigator.clipboard.writeText(text).then(() => {
@@ -3380,6 +2653,5 @@ function copyText(id) {
     });
 }
 </script>
-
 </body>
 </html>
